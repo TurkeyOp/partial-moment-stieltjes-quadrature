@@ -1,0 +1,5 @@
+• A moment-depth hierarchy bridges rational minimax and exact quadrature.
+• A 2n-k+1 alternation pattern certifies minimaxity in the stated class.
+• Weighted Chebyshev defects yield an exact worst-case selection risk.
+• Interval enclosures certify 99.9703% of the tested selector domain.
+• A separate code path reproduces the published rounded-rule results.

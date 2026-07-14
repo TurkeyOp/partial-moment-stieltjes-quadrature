@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software or the quadrature rules, please cite the accompanying manuscript."
+title: "Partially Moment-Constrained Positive Stieltjes Minimax Quadrature"
+type: software
+authors:
+  - family-names: "Tran"
+    given-names: "Minh Duc"
+    affiliation: "FPT University"
+    email: "ductranminh2107@gmail.com"
+repository-code: "https://github.com/TurkeyOp/partial-moment-stieltjes-quadrature"
+url: "https://github.com/TurkeyOp/partial-moment-stieltjes-quadrature"
+version: "1.0.0-preprint"
+date-released: "2026-07-14"
+license: "NOASSERTION"

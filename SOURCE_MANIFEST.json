@@ -1,0 +1,13 @@
+{
+  "rules_sha256": "eb1463e3567916709756059581f34ac4af8b4c61ef70a9e7c3c8b1fff37d977e",
+  "source_rounds": [
+    27,
+    31,
+    32,
+    35,
+    36,
+    37
+  ],
+  "entry_point": "python run_all.py",
+  "scope": "Reproduce core numerical tables and figures from the published rounded n=4 rules."
+}

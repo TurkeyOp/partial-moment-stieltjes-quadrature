@@ -1,0 +1,12 @@
+key,authors,title,year,arxiv_id,verification_status,relevance
+gautschi1993,Walter Gautschi,Gauss-type quadrature rules for rational functions,1993,math/9307223,Verified arXiv record,Broad rationally exact quadrature prior art
+huybrechs2017,Daan Huybrechs,On the computation of Gaussian quadrature rules for Chebyshev sets of linearly independent functions,2017,1710.11244,Verified arXiv record,Generalized Gaussian / Chebyshev-system prior art
+keshavarzzadeh2018,Vahid Keshavarzzadeh; Robert M. Kirby; Akil Narayan,Generation of Nested Quadrature Rules for Generic Weight Functions via Numerical Optimization: Application to Sparse Grids,2018,1808.03707,Verified arXiv record,Optimization-based moment matching prior art
+glaubitz2020,Jan Glaubitz,Constructing Positive Interpolatory Cubature Formulas,2020,2009.11981,Verified arXiv record,Positive cubature prior art
+beckermann2021,Bernhard Beckermann; Joanna Bisch; Robert Luce,"On the rational approximation of Markov functions, with applications to the computation of Markov functions of Toeplitz matrices",2021,2106.05098,Verified arXiv record,Markov-function rational approximation prior art
+trefethen2021,Lloyd N. Trefethen,Exactness of quadrature formulas,2021,2101.09501,Verified arXiv record,Motivates limits of exactness as performance proxy
+bravo2023,J. R. Bravo; J. A. Hernández; S. Ares de Parga; R. Rossi,A subspace-adaptive weights cubature method with application to the local hyperreduction of parameterized finite element models,2023,2310.15769,Verified arXiv record,Shared-support / adaptive-weight cubature prior art
+vanassche2023,Walter Van Assche,A Golub--Welsch version for simultaneous Gaussian quadrature,2023,2309.11864,Verified arXiv record,Simultaneous quadrature prior art
+goda2024,Takashi Goda; Yoshihito Kazashi; Ken'ichiro Tanaka,How sharp are error bounds? Lower bounds on quadrature worst-case errors for analytic functions,2024,2401.07196,Verified arXiv record,Worst-case error context
+zhang2025,Lei-Hong Zhang; Ya-Nan Zhang,b-d-Lawson: a method for the interpolation constrained rational minimax approximation,2025,2502.10665,Verified arXiv record,Closest novelty risk: constrained rational minimax
+hayakawa2026,Satoshi Hayakawa,Convex-Geometric Error Bounds for Positive-Weight Kernel Quadrature,2026,2605.05705,Verified arXiv record; literature-watch only,Recent positive-weight quadrature adjacency

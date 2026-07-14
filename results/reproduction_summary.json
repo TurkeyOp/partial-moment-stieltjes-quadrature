@@ -1,0 +1,8 @@
+{
+  "rule_count": 5,
+  "all_geometry_checks_pass": true,
+  "all_alternation_counts_pass": true,
+  "all_alternating_signs_pass": true,
+  "best_shifted_primary_method": "PMC-k0",
+  "best_shifted_primary_error": 4.522335969037172e-06
+}
