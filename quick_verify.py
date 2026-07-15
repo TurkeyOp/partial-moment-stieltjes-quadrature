@@ -5,16 +5,32 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 ERRORS: list[str] = []
+BINARY_SUFFIXES = {
+    ".pdf", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".zip", ".gz",
+    ".bz2", ".xz", ".7z", ".npy", ".npz", ".pkl", ".pickle", ".pyc",
+    ".so", ".dll", ".dylib", ".exe", ".bin", ".woff", ".woff2", ".ttf",
+    ".otf", ".ico",
+}
 
 
 def require(condition: bool, message: str) -> None:
     if not condition:
         ERRORS.append(message)
+
+
+def canonical_bytes(path: Path) -> bytes:
+    raw = path.read_bytes()
+    if path.suffix.lower() in BINARY_SUFFIXES or b"\x00" in raw:
+        return raw
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return raw
+    return text.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
 
 
 def read_json(rel: str):
@@ -38,12 +54,13 @@ def check_manifest() -> None:
         if not path.is_file():
             ERRORS.append(f"Manifest file missing: {row['path']}")
             continue
-        if path.stat().st_size != int(row["size_bytes"]):
-            ERRORS.append(f"Manifest size mismatch: {row['path']}")
+        payload = canonical_bytes(path)
+        if len(payload) != int(row["size_bytes"]):
+            ERRORS.append(f"Manifest canonical-size mismatch: {row['path']}")
             continue
-        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        digest = hashlib.sha256(payload).hexdigest()
         if digest != row["sha256"]:
-            ERRORS.append(f"Manifest SHA-256 mismatch: {row['path']}")
+            ERRORS.append(f"Manifest canonical SHA-256 mismatch: {row['path']}")
 
 
 def main() -> int:
@@ -86,7 +103,7 @@ def main() -> int:
 
     if ERRORS:
         print("PUBLIC RELEASE QUICK VERIFY: FAIL")
-        for error in ERRORS[:50]:
+        for error in ERRORS[:100]:
             print(f"- {error}")
         return 1
     print("PUBLIC RELEASE QUICK VERIFY: PASS")
@@ -94,6 +111,7 @@ def main() -> int:
     print("- 21/21 hierarchy rules frozen as PASS")
     print("- 6/6 independent Krawczyk boxes frozen as certified")
     print("- Round 49 selector fraction matches the certified reference")
+    print("- Cross-platform canonical manifest verified")
     print("- No submission-only or oversized files detected")
     return 0
 

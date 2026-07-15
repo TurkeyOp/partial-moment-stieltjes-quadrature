@@ -11,4 +11,4 @@ venv/
 *.bbl
 *.synctex.gz
 reproduced_results/
-main.pdf
+/main.pdf
