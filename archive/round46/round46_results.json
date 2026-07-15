@@ -1,0 +1,16 @@
+{
+  "round": 46,
+  "deliverable": "Manuscript Version 2",
+  "title": "From Structural Minimax to Gauss-Legendre: A Positive Moment-Constrained Stieltjes Quadrature Hierarchy",
+  "compiled_pdf": true,
+  "page_count": 17,
+  "figures": 5,
+  "main_tables": 5,
+  "full_hierarchy_levels_n4": 9,
+  "validated_selector_coverage_percent": 97.90673828124999,
+  "unresolved_selector_area_percent": 2.0932617187500013,
+  "multistart_solver_runs": 72,
+  "placeholder_count": 0,
+  "control_character_count": 0,
+  "remaining_submission_blocker": "specialist novelty and theorem review"
+}

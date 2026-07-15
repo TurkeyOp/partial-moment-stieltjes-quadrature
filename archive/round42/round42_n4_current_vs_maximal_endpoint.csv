@@ -1,0 +1,7 @@
+node_pairs_n,matched_moments_k,polynomial_exactness_degree,alternation_points,minimax_relative_error,hierarchy_scope
+4,0,-1,9,1.4906230748933158e-10,currently computed lower half
+4,1,1,8,2.4606263539088863e-09,currently computed lower half
+4,2,3,7,4.048641009537743e-08,currently computed lower half
+4,3,5,6,6.653545980331275e-07,currently computed lower half
+4,4,7,5,1.0928192707088406e-05,currently computed lower half
+4,8,15,1,0.4300499305920852,true maximal Gaussian endpoint

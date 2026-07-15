@@ -1,6 +1,0 @@
-matched_moments_k,all_nodes_inside,nodes_ordered,all_weights_positive,expected_alternation_count,observed_alternation_count,alternating_signs,worst_relative_error,relative_magnitude_spread
-0,True,True,True,9,9,True,1.4906254008906217e-10,2.9792140237562526e-06
-1,True,True,True,8,8,True,2.460626591371806e-09,1.804780991180306e-07
-2,True,True,True,7,7,True,4.048641044640533e-08,1.0968846211692052e-08
-3,True,True,True,6,6,True,6.653545980839226e-07,3.337237099803199e-10
-4,True,True,True,5,5,True,1.092819270731571e-05,3.0477766663519804e-11

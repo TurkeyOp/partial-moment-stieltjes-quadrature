@@ -1,0 +1,31 @@
+{
+  "arithmetic": "Python-FLint/Arb 80-digit ball arithmetic; outward-rounded IEEE-754 aggregation",
+  "maximum_chebyshev_degree": 500,
+  "selector_maximum_depth": 24,
+  "structural_rules_certified": 9,
+  "structural_witness_b_all": [
+    "0.08"
+  ],
+  "maximum_structural_relative_width": 1.4368181512819463e-10,
+  "visited_selector_cells": 344615,
+  "certified_leaf_count": 104467,
+  "unresolved_leaf_count": 67841,
+  "certified_coordinate_area": "94.41666305065155029296875",
+  "unresolved_coordinate_area": "0.38333694934844970703125",
+  "total_coordinate_area": "94.80",
+  "certified_fraction": "0.995956361293792724609375",
+  "unresolved_fraction": "0.004043638706207275390625",
+  "g_cache": {
+    "hits": 6166197,
+    "misses": 36873,
+    "maxsize": null,
+    "currsize": 36873
+  },
+  "tau_cache": {
+    "hits": 686195,
+    "misses": 3035,
+    "maxsize": null,
+    "currsize": 3035
+  },
+  "runtime_seconds": 14.813654661178589
+}

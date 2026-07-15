@@ -1,0 +1,13 @@
+{
+  "round": 47,
+  "audit_type": "targeted primary-source literature and novelty audit",
+  "sources_in_prior_art_matrix": 12,
+  "claims_audited": 10,
+  "direct_full_feature_match_found": false,
+  "absence_of_match_proves_novelty": false,
+  "primary_contribution_after_audit": "combined positive Stieltjes continuum-minimax path, exact mixed selector, and validated parameter partition",
+  "recommended_title": "Model-Aware Positive Stieltjes Quadrature: From Structural Minimax to Gauss-Legendre",
+  "patched_manuscript_compiled": true,
+  "patched_manuscript_pages": 19,
+  "remaining_submission_blocker": "external specialist review of novelty and theorem assumptions"
+}

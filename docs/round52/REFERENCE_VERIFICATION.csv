@@ -1,0 +1,19 @@
+reference,venue_type,doi,status,role
+Gautschi 1993,book chapter,10.1007/978-3-0348-6338-4_9,FORMAL VERIFIED,Rational Gauss-type quadrature
+Gautschi 2001,JCAM,10.1016/S0377-0427(00)00637-3,FORMAL VERIFIED,Survey/use of rational functions in quadrature
+Huybrechs 2022,SIAM J. Numer. Anal.,10.1137/21M1456935,FORMAL VERIFIED,Generalized Gaussian quadrature for Chebyshev sets
+Filip et al. 2018,SIAM J. Sci. Comput.,10.1137/17M1132409,FORMAL VERIFIED,Rational minimax via adaptive barycentric representations
+Zhang & Zhang 2025,arXiv,10.48550/arXiv.2502.10665,PREPRINT VERIFIED,Interpolation-constrained rational minimax
+Horning & Trefethen 2026,IMA J. Numer. Anal.,10.1093/imanum/draf138,FORMAL VERIFIED,Quadrature formulas from rational approximations
+van den Bos & Sanderse 2019,arXiv,10.48550/arXiv.1902.07477,PREPRINT VERIFIED,Positive interpolatory quadrature geometry
+Glaubitz 2020,arXiv,10.48550/arXiv.2009.11981,PREPRINT VERIFIED,Positive interpolatory cubature
+Keshavarzzadeh et al. 2020,J. Comput. Phys.,10.1016/j.jcp.2019.108979,FORMAL VERIFIED,Optimization-based nested quadrature
+Beckermann et al. 2022,Numer. Algorithms,10.1007/s11075-022-01256-4,FORMAL VERIFIED,Rational approximation of Markov functions
+Tomanovic 2023,ETNA,10.1553/etna_vol59s230,FORMAL VERIFIED,Gauss-type quadrature with external denominator zeros
+Trefethen 2022,SIAM Review,10.1137/20M1389522,FORMAL VERIFIED,Exactness and analytic quadrature perspective
+Goda et al. 2024,SIAM J. Numer. Anal.,10.1137/24M1634163,FORMAL VERIFIED,Worst-case errors for analytic functions
+Hayakawa 2026,arXiv,10.48550/arXiv.2605.05705,PREPRINT VERIFIED,Positive-weight kernel quadrature bounds
+Nailwal & Zalar 2024,arXiv,10.48550/arXiv.2412.20849,PREPRINT VERIFIED,Prescribed-node Gaussian quadrature/moment theory
+Moore et al. 2009,SIAM book,10.1137/1.9780898717716,FORMAL VERIFIED,Interval Newton/Krawczyk foundation
+Rump 2010,Acta Numerica,10.1017/S096249291000005X,FORMAL VERIFIED,Verification methods in floating-point arithmetic
+Johansson 2017,IEEE Trans. Comput.,10.1109/TC.2017.2690633,FORMAL VERIFIED,Arb interval arithmetic

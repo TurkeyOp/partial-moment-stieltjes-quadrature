@@ -1,0 +1,98 @@
+[
+  {
+    "file": "compile_log.txt",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "round46_change_log.md",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "round46_results.json",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "README.md",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "pdf_inspection.txt",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "extracted_text.txt",
+    "forbidden_control_count": 17
+  },
+  {
+    "file": "manuscript_v2/main.tex",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/references.bib",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/highlights.txt",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/MANUSCRIPT_V2_OVERVIEW.md",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "specialist_review_package/specialist_review_brief.md",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "specialist_review_package/specialist_review_questions.md",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "specialist_review_package/claim_evidence_matrix.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "specialist_review_package/manuscript_version_2.tex",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "specialist_review_package/full_hierarchy_summary.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "specialist_review_package/multistart_problem_summary.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/data/full_hierarchy_summary.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/data/full_hierarchy_nodes_weights.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/data/full_hierarchy_alternation.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/data/structural_enclosures.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/data/transfer_enclosures.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/data/adaptive_certified_leaves.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/data/adaptive_unresolved_leaves.csv",
+    "forbidden_control_count": 0
+  },
+  {
+    "file": "manuscript_v2/data/multistart_problem_summary.csv",
+    "forbidden_control_count": 0
+  }
+]

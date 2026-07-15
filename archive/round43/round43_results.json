@@ -1,0 +1,15 @@
+{
+  "round": 43,
+  "missing_rules_constructed": 6,
+  "all_weights_positive": true,
+  "maximum_upper_half_moment_residual": 1.6653345369377348e-16,
+  "maximum_upper_half_remez_residual": 2.2893018458041524e-12,
+  "upper_half_selector_fraction": 0.5009316770186335,
+  "upper_half_selected_k_values": [
+    5,
+    6,
+    7,
+    8
+  ],
+  "submission_blocker_from_k_cutoff": false
+}

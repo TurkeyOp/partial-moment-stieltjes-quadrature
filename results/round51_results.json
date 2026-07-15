@@ -1,0 +1,50 @@
+{
+  "round": 51,
+  "status": "COMPLETED",
+  "completed_at_utc": "2026-07-15T14:14:50.456003+00:00",
+  "python": "3.13.5 (main, May  5 2026, 21:05:52) [GCC 14.2.0]",
+  "platform": "Linux-4.4.0-x86_64-with-glibc2.41",
+  "dependencies": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "pandas": "2.2.3",
+    "matplotlib": "3.10.8",
+    "mpmath": "1.3.0",
+    "flint": "0.9.0"
+  },
+  "full_hierarchy": {
+    "rules_audited": 21,
+    "all_passed": true
+  },
+  "round49": {
+    "original_certifier_rerun": true,
+    "visited_cells": 344615,
+    "certified_fraction": 0.9959563612937927
+  },
+  "round50": {
+    "archived_rerun_certified": 6,
+    "precision_fixed_certified": 6,
+    "independent_ad_certified": 6
+  },
+  "cross_artifact_checks": {
+    "passed": 35,
+    "total": 35
+  },
+  "automated_tests": {
+    "passed": 7,
+    "total": 7
+  },
+  "manuscript": {
+    "version": "2.4",
+    "pages": 25,
+    "recompiled": true,
+    "pixel_identical_to_frozen": true
+  },
+  "precision_finding": "Archived Newton endpoints were created at import-time default mpmath precision; the Arb proof remained exact. Precision-fixed rerun resolves the center diagnostic.",
+  "limitations": [
+    "Author-produced independent code path, not third-party replication.",
+    "Global uniform-level audit reruns the Round50 interval monotonicity/curvature implementation.",
+    "A clean offline install from an empty machine was not tested."
+  ],
+  "next_round": 52
+}

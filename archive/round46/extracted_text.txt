@@ -1,0 +1,919 @@
+From Structural Minimax to Gauss–Legendre: A
+Positive Moment-Constrained Stieltjes Quadrature
+Hierarchy
+Tran Minh Duca,∗
+a
+
+FPT University, Lot E2a-7, D1 Street, Saigon Hi-Tech Park, Ho Chi Minh City, Vietnam
+
+Abstract
+We study positive symmetric quadrature rules for a centered Lorentzian/Stieltjes
+family under a variable number of moment conditions. With n positive node
+pairs and moment depth k, the full feasible range is 0 ≤ k ≤ 2n. The admissible set is a smooth manifold of dimension 2n − k; moment depths above 2n are
+impossible, and the endpoint k = 2n is exactly the classical 2n-point Gauss–
+Legendre rule. For k < 2n, shared Laurent coefficients reduce the degree of
+the difference numerator to 2n − k − 1, giving a 2n − k + 1-point alternation
+certificate for minimaxity within the stated class. Complete high-precision
+hierarchies for n = 2, 3, 4 quantify the transition from structural minimax
+to Gaussian exactness. For a smooth residual with Chebyshev coefficients
+|aj | ≤ Cho−j , we derive the exact worst-case error CGk (ho). Combining
+this quantity with the structural error Sk gives the exact model-aware risk
+Gk (ho) + auSk . Conservative numerical enclosures assign a unique rule on
+97.9067% of the tested parameter domain. Seventy-two multi-start reconstructions recover the upper-half rules, and a shifted-Lorentzian stress test
+supports local, rather than universal, robustness.
+Keywords: numerical quadrature, Stieltjes functions, rational minimax
+approximation, moment constraints, Gauss–Legendre quadrature, validated
+numerics
+
+∗
+
+Corresponding author
+Email address: ductranminh2107@gmail.com (Tran Minh Duc)
+
+1. Introduction
+Gaussian quadrature allocates a fixed node budget to polynomial exactness.
+This is a powerful default for smooth integrands, but it need not be the
+most effective design when the dominant difficulty is a known nearby pole.
+Rationally exact quadrature incorporates prescribed singular structure [1],
+generalized Gaussian rules extend exactness to non-polynomial function
+systems [2], and optimization-based constructions provide flexible ways to
+determine nodes and weights [3, 4]. Rational approximation of Markov and
+Stieltjes functions supplies closely related structural theory [5].
+The present problem lies between two extremes. At one end, an unconstrained rule can devote all of its degrees of freedom to a near-singular
+structural family. At the other, the Gauss–Legendre rule devotes the full budget to polynomial exactness. The central question is whether these endpoints
+belong to a single controlled hierarchy and, if so, how the intermediate rule
+should be selected when the integrand also contains an uncertain smooth
+background.
+We answer this question within the class of positive symmetric Stieltjesresponse rules. The paper does not claim novelty for positivity, moment
+matching, minimax approximation, or Gaussian quadrature separately. Its
+contribution is the combined framework:
+(i) the full feasible moment range 0 ≤ k ≤ 2n, the dimension law dim An,k =
+2n − k, impossibility beyond 2n, and identification of the endpoint with
+Gauss–Legendre;
+(ii) a degree-reduction argument and a class-specific alternation certificate
+for every nonzero-dimensional level;
+(iii) complete numerical hierarchies for n = 2, 3, 4, including the previously
+missing upper-half rules;
+(iv) an exact coefficient-space risk and full-hierarchy rule selector;
+(v) conservative numerical validation of the rounded rules, a shifted-family
+stress test, and independent multi-start reconstruction.
+These claims are restricted to the stated symmetric positive class. They do
+not imply universal superiority over Gaussian, adaptive, or problem-specific
+quadrature outside the modeled setting.
+2
+
+2. Problem formulation
+Let
+Z 1
+f (x) dx,
+
+I[f ] =
+
+1
+
+Lb (x) =
+
+x 2 + b2
+
+−1
+
+,
+
+b ∈ B = [0.08, 0.12].
+
+With s = b2 and y = x2 ,
+F (s) = I[L√s ] =
+
+Z 1
+0
+
+2
+y −1/2
+1
+dy = √ arctan √ .
+s+y
+s
+s
+
+A symmetric n-pair rule has the form
+Q[f ] =
+
+n
+X
+
+wj {f (−xj ) + f (xj )},
+
+0 < x1 < · · · < xn < 1,
+
+wj > 0.
+
+j=1
+
+Writing yj = x2j , the response on the structural family is the positive Stieltjes
+rational function
+n
+X
+wj
+√
+rQ (s) = Q[L s ] = 2
+.
+s + yj
+j=1
+For an integer k ≥ 0, define the moment-constrained class
+(
+)
+n
+X
+1
+An,k = Q :
+wj yjℓ =
+, ℓ = 0, . . . , k − 1 .
+2ℓ
++
+1
+j=1
+For k = 0, no moment condition is imposed.
+Lemma 1 (Equivalent interpretations of the constraints). For k ≥ 1, the
+following conditions are equivalent:
+(a) Q ∈ An,k ;
+(b) Q is exact for every polynomial of degree at most 2k − 1;
+(c) rQ (s) − F (s) = O(s−k−1 ) as s → ∞.
+Proof. Symmetry gives exactness for odd polynomials. For even monomials,
+2ℓ
+
+Q[x ] = 2
+
+n
+X
+
+wj yjℓ ,
+
+j=1
+
+3
+
+I[x2ℓ ] =
+
+2
+,
+2ℓ + 1
+
+which proves the equivalence of (a) and (b). The expansion
+m−1
+X
+1
+=
+(−1)ℓ y ℓ s−ℓ−1 + O(s−m−1 )
+s+y
+ℓ=0
+−1/2
+is uniform for y ∈ [0,
+dy and applying it to the
+P1]. Integrating it against y
+discrete measure 2 j wj δyj proves the equivalence with (c).
+
+3. The full feasible hierarchy
+Let
+Pn = {(y, w) : 0 < y1 < · · · < yn < 1, wj > 0} ⊂ R2n ,
+and define the moment map
+Mk (y, w) =
+
+n
+X
+
+!k−1
+wj yjℓ
+
+j=1
+
+.
+ℓ=0
+
+Theorem 2 (Feasible range, dimension, and Gaussian endpoint). Within the
+positive ordered class:
+(i) An,k is nonempty for every 0 ≤ k ≤ 2n;
+(ii) for 0 ≤ k ≤ 2n, it is a smooth manifold of dimension
+dim An,k = 2n − k;
+(iii) An,k is empty for k > 2n;
+(iv) An,2n consists of the positive half of the classical 2n-point Gauss–Legendre
+rule.
+Proof. Nonemptiness follows because the 2n-point Gauss–Legendre rule satisfies all moment conditions through k = 2n, and hence every prefix.
+To prove the rank statement, suppose a linear combination of the rows of
+DMk vanishes and define
+k−1
+X
+p(y) =
+cℓ y ℓ .
+ℓ=0
+
+4
+
+The columns obtained by differentiating with respect to wj give p(yj ) =
+0, while the columns obtained by differentiating with respect to yj give
+wj p′ (yj ) = 0. Positivity implies p′ (yj ) = 0. Thus every yj is a double root.
+For k ≤ 2n, however, deg p ≤ 2n − 1, so p ≡ 0. Therefore DMk has full row
+rank k, and the implicit-function theorem gives dimension 2n − k.
+For impossibility, suppose moments through index 2n were matched. The
+polynomial
+n
+Y
+g(y) =
+(y − yj )2
+j=1
+
+has degree 2n, is nonnegative,
+and is not identically zero. The discrete
+P
+transformed rule gives 2 j wj g(yj ) = 0, whereas
+Z 1
+g(y)y −1/2 dy > 0,
+0
+
+a contradiction.
+At k = 2n, the transformed n-node rule is exact through degree 2n − 1
+for the measure y −1/2 dy. It is therefore its Gaussian quadrature rule. Under
+y = x2 , the symmetric rule is exact through degree 4n − 1, and hence is the
+2n-point Gauss–Legendre rule.
+Remark 3. The previously studied range 0 ≤ k ≤ n is the lower half of the
+feasible hierarchy. It retains at least n structural design degrees of freedom.
+It is a meaningful high-structural-accuracy regime, but it is not the maximal
+feasible range.
+4. Minimax characterization
+Write two structural responses as ri = pi /qi , where qi is monic of degree
+n.
+Proposition 4 (Difference-numerator degree). If r1 , r2 ∈ An,k and 0 ≤ k ≤
+2n, then
+H
+r1 − r2 =
+,
+deg H ≤ 2n − k − 1,
+q1 q2
+unless the two responses are identical.
+Proof. The generic numerator p1 q2 − p2 q1 has degree at most 2n − 1. The
+shared Laurent coefficients imply r1 − r2 = O(s−k−1 ). Since q1 q2 is monic of
+degree 2n, the stated degree bound follows.
+5
+
+Define the relative structural error
+εQ (s) =
+
+rQ (s)
+− 1.
+F (s)
+
+Theorem 5 (Alternation certificate). Let 0 ≤ k < 2n. Suppose Q⋆ ∈ An,k
+has 2n − k + 1 ordered points on the design interval at which εQ⋆ has equal
+magnitude and alternating sign, and this magnitude equals its uniform norm.
+Then no rule in An,k has strictly smaller uniform relative error.
+Proof. A strictly better competitor would make εQ⋆ − εQ alternate sign at
+the 2n − k + 1 points, forcing at least 2n − k distinct zeros. Since F (s) > 0,
+these are zeros of rQ⋆ − rQ , contradicting the degree bound 2n − k − 1, unless
+the responses are identical.
+Remark 6. The theorem proves minimaxity within the stated class, not global
+uniqueness of the nonlinear parameterization. The zero-dimensional endpoint
+k = 2n is determined by its moments and does not require a nontrivial
+alternation argument.
+5. Numerical construction of the complete hierarchy
+The constrained minimax equations combine the k moment conditions,
+equal-magnitude alternating errors, and stationarity at internal extrema.
+Lower-half rules were constructed in high precision. The missing upper-half
+problems were solved by continuation toward the Gaussian endpoint and
+refined through the equioscillation equations. All published rules have ordered
+nodes and positive weights.
+For n = 4, the error grows from 1.49 × 10−10 at k = 0 to 4.30 × 10−1 at the
+Gauss endpoint. The upper-half values k = 5, 6, 7 continue the approximately
+constant finite-range price per additional moment before the error enters
+an order-one regime. This pattern is empirical and is not claimed as an
+asymptotic theorem.
+
+6
+
+Table 1: Complete n = 4 hierarchy. The endpoint k = 8 is zero-dimensional; therefore the
+alternation-certificate column is not applicable.
+
+k
+
+Dimension
+
+Exactness
+
+Cert. points
+
+Worst relative error
+
+Min. wj
+
+0
+1
+2
+3
+4
+5
+6
+7
+8
+
+8
+7
+6
+5
+4
+3
+2
+1
+0
+
+–
+1
+3
+5
+7
+9
+11
+13
+15
+
+9
+8
+7
+6
+5
+4
+3
+2
+–
+
+1.490623e-10
+2.460626e-09
+4.048641e-08
+6.653546e-07
+1.092819e-05
+1.794333e-04
+2.943219e-03
+4.597982e-02
+4.300499e-01
+
+0.039147
+0.044528
+0.051670
+0.061646
+0.076595
+0.101407
+0.149011
+0.126194
+0.101229
+
+Full feasible hierarchy
+n=2
+n=3
+n=4
+
+Worst centered relative error
+
+10 1
+10 3
+10 5
+10 7
+10 9
+0
+
+1
+
+2
+
+3
+
+4
+5
+Moment depth k
+
+6
+
+7
+
+8
+
+Figure 1: Worst centered relative error for the full feasible hierarchies 0 ≤ k ≤ 2n, n = 2, 3, 4.
+The final point of each curve is the corresponding Gauss–Legendre rule.
+
+7
+
+Representative alternation certificates
+k=0
+k=4
+k=7
+
+1.00
+
+Relative error / minimax level
+
+0.75
+0.50
+0.25
+0.00
+0.25
+0.50
+0.75
+1.00
+0.080
+
+0.085
+
+0.090
+
+0.095 0.100 0.105
+Lorentzian width b
+
+0.110
+
+0.115
+
+0.120
+
+Figure 2: Representative normalized alternation patterns from the lower endpoint (k = 0),
+midpoint (k = 4), and upper half (k = 7) of the n = 4 hierarchy.
+
+8
+
+6. Exact coefficient-space rule selection
+Let the uncertain smooth residual have a Chebyshev expansion
+h(x) =
+
+∞
+X
+
+|aj | ≤ Cρ−j ,
+
+aj Tj (x),
+
+ρ > 1.
+
+j=0
+
+For a fixed rule, define
+∆j (Q) = I[Tj ] − Q[Tj ].
+Theorem 7 (Exact coefficient-box norm). For every fixed bounded quadrature
+rule,
+∞
+X
+sup |I[h] − Q[h]| = CGQ (ρ),
+GQ (ρ) =
+ρ−j |∆j (Q)|.
+h
+
+j=0
+
+Proof. Uniform convergence allows termwise application of I −Q. The triangle
+inequality gives the upper bound, and it is attained by the sign-aligned
+coefficients
+aj = Cρ−j sign ∆j (Q).
+
+For the mixed class
+f (x) = h(x) + cLb (x),
+
+|c| ≤ cmax ,
+
+define
+SQ = max |I[Lb ] − Q[Lb ]|.
+b∈B
+
+Theorem 8 (Exact mixed-class risk). For every fixed rule,
+sup |I[f ] − Q[f ]| = CGQ (ρ) + cmax SQ .
+f
+
+The two signs can be chosen independently. For C > 0, define τ = cmax /C.
+The model-aware rule is therefore
+k ⋆ (ρ, τ ) ∈ arg min [Gk (ρ) + τ Sk ] .
+0≤k≤2n
+
+9
+
+Table 2: Full n = 4 structural and smooth-risk trade-off at ρ = 1.5.
+
+k
+
+Structural upper enclosure Sk
+
+Gk (1.5)
+
+0
+1
+2
+3
+4
+5
+6
+7
+8
+
+5.55627e-09
+9.17189e-08
+1.50911e-06
+2.48007e-05
+4.07341e-04
+6.68824e-03
+1.09706e-01
+1.71386e+00
+1.60298e+01
+
+9.11242e-01
+3.95465e-01
+2.04657e-01
+9.59856e-02
+4.49242e-02
+2.14018e-02
+1.17665e-02
+6.62192e-03
+3.42291e-03
+
+7. Validated partition for the rounded rules
+The exact hierarchy theory concerns ideal moment-constrained rules.
+Published decimal nodes and weights have small rounding defects. The
+coefficient-box risk remains exact for each fixed rounded operator, but a
+nominal moment label alone does not transfer exact symbolic properties.
+We therefore re-evaluated all nine rounded n = 4 rules. The expected
+alternation counts were recovered for k = 0, . . . , 7. Structural errors were
+enclosed by a dense partition and inflated local derivative bounds. Chebyshev
+defects were evaluated through degree 500, and the remaining tail was bounded
+geometrically. A parameter cell was assigned a rule only when its risk upper
+bound was below the lower bounds of all competitors throughout the cell.
+Adaptive refinement assigned a unique winner on
+97.9067%
+of
+(ρ, log10 τ ) ∈ [1.05, 5] × [−12, 12].
+The unresolved area, 2.0933%, is concentrated near transition curves.
+This validation is numerical rather than proof-assistant formal. The
+reported coverage depends on the stated enclosures and refinement depth.
+
+10
+
+100
+
+Structural accuracy versus smooth protection
+
+0
+
+Smooth-risk norm Gk(1.5)
+
+1
+2
+3
+
+10 1
+
+4
+5
+6
+
+10 2
+
+7
+8
+10 7
+
+10 5
+10 3
+Structural error enclosure Sk
+
+10 1
+
+101
+
+Figure 3: Each added moment decreases the smooth-risk norm but increases the Lorentzian
+structural error. Labels indicate the moment depth k.
+
+Table 3: Fraction of the certified parameter area assigned to each moment depth.
+
+k
+
+Certified-area fraction
+
+0
+1
+2
+3
+4
+5
+6
+7
+8
+
+22.279%
+9.216%
+8.299%
+8.463%
+8.478%
+8.460%
+8.117%
+6.934%
+19.753%
+
+11
+
+Validated full-hierarchy selector
+
+5.0
+
+8
+7
+
+4.0
+
+6
+
+3.5
+
+5
+
+3.0
+
+4
+
+2.5
+
+3
+
+2.0
+
+2
+
+1.5
+
+1
+
+Certified selected k
+
+4.5
+
+10
+
+5
+
+0
+log10
+
+5
+
+10
+
+0
+
+Figure 4: Validated full-hierarchy selector. Blank regions are not assigned because the
+conservative risk enclosures overlap.
+
+12
+
+8. External validity and reconstruction
+8.1. Small pole-location mismatch
+Without retraining, the centered rules were tested on
+1
+,
+(x − a)2 + b2
+
+La,b (x) =
+
+|a| ≤ 0.03,
+
+0.08 ≤ b ≤ 0.12.
+
+Table 4: Worst relative errors on the shifted-Lorentzian stress-test box.
+
+Method
+PMC–k0
+PMC–k4
+Composite–Simpson–9
+Gauss–Legendre–8
+
+Evaluations
+
+Worst error
+
+Worst |a|
+
+Worst b
+
+8
+8
+9
+8
+
+4.522336e-06
+1.025564e-03
+7.426762e-02
+4.300499e-01
+
+0.0300
+0.0300
+0.0300
+0.0000
+
+0.0800
+0.0845
+0.1200
+0.0800
+
+Shifted-family stress test, |a| 0.03
+
+Worst relative error
+
+10 1
+10 2
+10 3
+10 4
+10 5
+-k0
+
+PMC
+
+-k4
+
+-9
+
+pson
+-Sim
+e
+t
+i
+s
+o
+
+PMC
+
+p
+
+Com
+
+Ga
+
+-8
+
+e
+endr
+
+Leg
+uss-
+
+Figure 5: Stress test under small pole-location mismatch. The comparison supports local
+structural robustness, not shifted-family minimaxity or universal superiority.
+
+The k = 0 rule has worst relative error 4.52 × 10−6 , whereas the Gauss
+endpoint has worst error 4.30 × 10−1 on the same box. The centered error is
+nevertheless inflated by more than four orders of magnitude, so the correct
+interpretation is local robustness rather than shift invariance.
+13
+
+8.2. Independent multi-start reconstruction
+The six upper-half problems
+(2, 3), (3, 4), (3, 5), (4, 5), (4, 6), (4, 7)
+were reconstructed from twelve perturbed starts each. A run was accepted
+only when nodes were ordered, weights were positive, moment residuals were
+below 10−10 , and scaled equioscillation residuals were below 10−8 .
+Table 5: Independent multi-start reconstruction of the upper-half rules. Error differences
+are relative to the published minimax level.
+(n, k)
+
+Accepted starts
+
+Error difference
+
+Max. node difference
+
+Max. weight difference
+
+(2, 3)
+(3, 4)
+(3, 5)
+(4, 5)
+(4, 6)
+(4, 7)
+
+12/12
+10/12
+12/12
+8/12
+11/12
+12/12
+
+2.64e-16
+6.78e-14
+5.31e-14
+2.38e-12
+9.22e-14
+5.11e-13
+
+5.55e-17
+4.44e-16
+1.29e-14
+4.44e-15
+1.03e-14
+8.95e-14
+
+5.55e-17
+5.00e-16
+1.32e-14
+4.27e-15
+1.05e-14
+6.43e-14
+
+All accepted solutions in each problem formed a single error-level cluster.
+No accepted start found a better rule by more than 10−6 relative, and the
+maximum best-rule error difference was 2.38 × 10−12 . This reduces the risk of
+a local numerical artifact but is not a proof of global uniqueness or third-party
+replication.
+9. Discussion and relation to prior work
+The framework is adjacent to several established directions. Rationally
+exact quadrature and generalized Gaussian quadrature use non-polynomial
+structural information [1, 2]. Positive cubature studies stable positive representations [4]. Markov-function rational approximation concerns the same
+broad Stieltjes geometry [5]. Constrained rational minimax approximation
+provides especially close methodological context [10]. Simultaneous and
+common-support quadrature constructions supply further comparisons [8, 7].
+The present contribution should therefore not be described as the invention of structure-aware quadrature, moment matching, positivity, or minimax
+approximation. Within the proposed class, the distinctive combination is the
+variable-depth path from structural minimax to Gauss–Legendre, the dimension and feasibility characterization, the class-specific alternation certificate,
+and the exact model-aware selector.
+14
+
+Positivity is retained because it prevents large signed cancellations, preserves a positive discrete Stieltjes representation, and makes the Gaussian
+endpoint part of the same admissible class. Removing positivity may lower
+the structural minimax error, but it would define a different problem with
+different stability and interpretation.
+The selector is useful precisely because no single hierarchy level is best for
+the mixed class. Small k dominates when the structural component is strong;
+large k, including the Gaussian endpoint, occupies substantial parameter
+regions when the smooth residual dominates.
+10. Limitations
+The theoretical and numerical study is one-dimensional and symmetric.
+The principal structural family is the centered Lorentzian kernel. The shiftedfamily experiment is a stress test and is not itself minimax-optimized or
+validated by interval arithmetic. Global uniqueness of the nonlinear minimax
+parameters is not proved. The full selector validation leaves approximately
+2.0933% of the domain unassigned. The empirical near-geometric price per
+moment is not an asymptotic theorem. Finally, the novelty positioning
+still requires specialist comparison with the closest constrained-rational and
+structure-aware quadrature literature.
+11. Conclusion
+The positive moment-constrained Stieltjes rules form a complete feasible
+path within the stated class:
+k=0
+
+−→
+
+k = 2n.
+
+The first endpoint is the unconstrained structural minimax rule, while the
+second is Gauss–Legendre. Between them, each moment condition reduces
+the admissible dimension by one and trades structural accuracy for smooth
+polynomial protection. The difference-degree argument gives a matching
+alternation count for every nonzero-dimensional level. An exact coefficientspace risk then turns the hierarchy into a model-aware selector. Numerical
+validation, shifted-family testing, and multi-start reconstruction support the
+reliability and practical scope of the computed rules.
+
+15
+
+Data and code availability
+The code, published rules, generated data, and reproduction scripts are
+available at https://github.com/TurkeyOp/partial-moment-stieltjes-quadrature.
+The Version 2 upper-half and full-selector materials are included in the accompanying research archive and should be merged into the public repository
+before journal submission.
+Funding
+This research did not receive any specific grant from funding agencies in
+the public, commercial, or not-for-profit sectors.
+Declaration of competing interest
+The author declares that he has no known competing financial interests
+or personal relationships that could have appeared to influence the work
+reported in this paper.
+Declaration of generative AI and AI-assisted technologies in the
+manuscript preparation process
+During the preparation of this work, the author used OpenAI ChatGPT to
+assist with literature organization, code prototyping, manuscript structuring,
+and language revision. The author reviewed and verified the mathematical
+derivations, numerical results, references, interpretations, and final wording
+and takes full responsibility for the content of the article.
+References
+[1] W. Gautschi, Gauss-type quadrature rules for rational functions,
+arXiv:math/9307223 (1993).
+[2] D. Huybrechs, On the computation of Gaussian quadrature rules for
+Chebyshev sets of linearly independent functions, arXiv:1710.11244
+(2017).
+[3] V. Keshavarzzadeh, R. M. Kirby, A. Narayan, Generation of nested
+quadrature rules for generic weight functions via numerical optimization:
+Application to sparse grids, arXiv:1808.03707 (2018).
+16
+
+[4] J. Glaubitz, Constructing positive interpolatory cubature formulas,
+arXiv:2009.11981 (2020).
+[5] B. Beckermann, J. Bisch, R. Luce, On the rational approximation of
+Markov functions, with applications to the computation of Markov
+functions of Toeplitz matrices, arXiv:2106.05098 (2021).
+[6] L. N. Trefethen, Exactness of quadrature formulas, arXiv:2101.09501
+(2021).
+[7] J. R. Bravo, J. A. Hernández, S. Ares de Parga, R. Rossi, A subspaceadaptive weights cubature method with application to local hyperreduction, arXiv:2310.15769 (2023).
+[8] W. Van Assche, A Golub–Welsch version for simultaneous Gaussian
+quadrature, arXiv:2309.11864 (2023).
+[9] T. Goda, Y. Kazashi, K. Tanaka, How sharp are error bounds?
+Lower bounds on quadrature worst-case errors for analytic functions,
+arXiv:2401.07196 (2024).
+[10] L.-H. Zhang, Y.-N. Zhang, b-d-Lawson: a method for interpolationconstrained rational minimax approximation, arXiv:2502.10665 (2025).
+
+17
+
+

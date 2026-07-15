@@ -1,0 +1,9 @@
+claim,evidence,status,external_review_priority
+Full feasible range is 0 <= k <= 2n,"Rank theorem, Gauss nonemptiness, squared-node impossibility proof",Proved within stated class,Critical
+dim A_nk = 2n-k,Full-row-rank Jacobian argument,Proved within open ordered positive class,Critical
+k=2n is Gauss-Legendre,Transformed Gaussian quadrature for y^(-1/2),Proved subject to standard Gaussian uniqueness,Critical
+2n-k+1 alternation certifies minimaxity,Difference-numerator degree and zero-count argument,Conditional theorem for k<2n,Critical
+"Full numerical hierarchy n=2,3,4","Published nodes/weights, moment audit, alternation audit",High-precision numerical evidence,High
+Full selector validated on 97.9067% of domain,Conservative structural and transfer enclosures with adaptive refinement,"Validated numerical result, not formal proof",High
+Upper-half solutions are reproducible,72 multi-start solves; no better accepted solution found,"Strong numerical evidence, not global uniqueness proof",Medium
+Framework is novel,Current internal prior-art audit only,Not yet externally confirmed,Critical

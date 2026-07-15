@@ -1,0 +1,28 @@
+{
+  "method": "independent mpmath evaluation plus dense numpy screening",
+  "mp_decimal_digits": 100,
+  "dense_grid_size": 50001,
+  "rule_count": 21,
+  "expected_rule_count": 21,
+  "all_rules_pass": true,
+  "n2_levels": 5,
+  "n3_levels": 7,
+  "n4_levels": 9,
+  "upper_half_rule_count": 6,
+  "maximum_moment_residual": 6.27844981593e-16,
+  "maximum_extremum_value_discrepancy": 5.53553065392e-15,
+  "maximum_internal_derivative_residual": 1.47230528639e-13,
+  "claim_scope": {
+    "proved_by_this_script": [
+      "arithmetic consistency of frozen rule data",
+      "high-precision moment, geometry, alternation-point and stationarity reproduction"
+    ],
+    "numerical_only": [
+      "dense-grid continuum screening"
+    ],
+    "not_proved": [
+      "global minimax optimality from dense sampling alone",
+      "existence of exact roots"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "round": 49,
+  "deliverable": "Interval-certified Manuscript Version 2.3",
+  "interval_backend": "Python-FLint/Arb",
+  "arb_precision_decimal_digits": 80,
+  "structural_rules_certified": 9,
+  "maximum_chebyshev_degree": 500,
+  "selector_maximum_depth": 24,
+  "visited_selector_cells": 344615,
+  "certified_leaf_count": 104467,
+  "unresolved_leaf_count": 67841,
+  "certified_fraction": 0.9959563612937927,
+  "unresolved_fraction": 0.004043638706207275,
+  "compiled_pdf": true,
+  "page_count": 22,
+  "rendered_pages": 22,
+  "undefined_reference_warning_count": 0,
+  "undefined_citation_warning_count": 0,
+  "overfull_hbox_warning_count": 0,
+  "primary_blocker_resolved": "rigorous interval selector validation",
+  "remaining_primary_blocker": "external specialist theorem/novelty review and computer-assisted existence of ideal upper-half rules"
+}

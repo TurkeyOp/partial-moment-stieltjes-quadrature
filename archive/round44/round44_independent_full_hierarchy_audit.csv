@@ -1,0 +1,10 @@
+k,expected_extrema,observed_extrema,alternating_signs,worst_relative_error,relative_magnitude_spread,maximum_constrained_moment_residual,all_weights_positive,nodes_strictly_ordered,note
+0,9,9,True,1.490627621336671e-10,5.958419171809527e-06,0.0,True,True,Published extrema re-evaluated
+1,8,8,True,2.460626813416411e-09,3.6095616566371986e-07,2.220446049250313e-16,True,True,Published extrema re-evaluated
+2,7,7,True,4.0486410668449935e-08,2.7422115378835647e-08,2.220446049250313e-16,True,True,Published extrema re-evaluated
+3,6,6,True,6.653545983059672e-07,1.0011711296068452e-09,1.1102230246251565e-16,True,True,Published extrema re-evaluated
+4,5,5,True,1.0928192707426732e-05,1.0159255554403391e-10,0.0,True,True,Published extrema re-evaluated
+5,4,4,True,0.00017943334945280665,1.856215181867003e-12,1.1102230246251565e-16,True,True,Published extrema re-evaluated
+6,3,3,True,0.0029432194817885504,3.772138066816854e-14,2.220446049250313e-16,True,True,Published extrema re-evaluated
+7,2,2,True,0.04597982225345976,1.4487524790833017e-14,1.1102230246251565e-16,True,True,Published extrema re-evaluated
+8,1,1,True,0.43004993059208474,0.0,5.273559366969494e-16,True,True,Gaussian zero-dimensional endpoint

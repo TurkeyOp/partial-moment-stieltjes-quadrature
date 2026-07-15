@@ -1,70 +1,89 @@
-> **New user?** Open [`START_HERE.md`](START_HERE.md). The final paper is [`FINAL_PROJECT_PAPER.pdf`](FINAL_PROJECT_PAPER.pdf).
+# Model-Aware Positive Stieltjes Quadrature
 
-# Partially Moment-Constrained Positive Stieltjes Minimax Quadrature
+Reproducibility repository for the manuscript:
 
-This repository accompanies the manuscript by **Tran Minh Duc** on a
-positive partial-moment quadrature hierarchy for a centered Stieltjes /
-Lorentzian model, exact coefficient-space risk, interval-certified rule
-selection, and external-validity stress testing.
+> **Model-Aware Positive Stieltjes Quadrature: From Structural Minimax to Gauss–Legendre**  
+> Tran Minh Duc, FPT University, Ho Chi Minh City, Vietnam
 
-## Author
+This repository contains the current manuscript, the full finite quadrature hierarchy for \(n=2,3,4\), interval certificates, frozen reference data, independent author-produced verification code, and the valid research history through Round 52.
 
-- **Tran Minh Duc**  
-  FPT University, Ho Chi Minh City, Vietnam  
-  Corresponding author: `ductranminh2107@gmail.com`
+## Current scientific status
 
-## Reproduce the main numerical results
+- Full hierarchy: **21/21 rules** for \(n=2,3,4\) and \(0\le k\le 2n\).
+- Six upper-half nonlinear systems: **6/6 locally existence-and-uniqueness certified** with Krawczyk/Arb boxes.
+- Independent forward-AD/Arb code path: **6/6 boxes re-certified** without importing the Round 50 implementation.
+- Rounded \(n=4\) mixed-model selector: **99.59563612937927%** of the stated parameter rectangle uniquely certified.
+- Current manuscript: `paper/current/MANUSCRIPT_VERSION_2_5.pdf`.
+
+The repository does **not** claim third-party replication, global uniqueness outside the certified boxes, universal superiority, or exhaustive novelty.
+
+## Quick verification
+
+The quick check uses only Python's standard library and validates the frozen public package:
 
 ```bash
-python -m pip install -r requirements.txt
-python run_all.py
+python quick_verify.py
 ```
 
-The command reconstructs the published rounded rules' moment defects,
-alternation points, centered errors, structural errors, transfer
-functions, selector spot checks, shifted-family stress test, figures,
-and seven automated audit tests.
+Expected result:
+
+```text
+PUBLIC RELEASE QUICK VERIFY: PASS
+```
+
+## Full numerical reproduction
+
+Install the locked Python dependencies:
+
+```bash
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# macOS/Linux: source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-lock.txt
+```
+
+Then run:
+
+```bash
+python run_full_reproduction.py
+```
+
+The full run reproduces the hierarchy audit, Round 49 interval selector certificate, Round 50 Krawczyk certificates, and the independent forward-AD/Arb verification. Building the manuscript additionally requires a LaTeX installation with `latexmk`.
 
 ## Repository map
 
-```text
-paper/          manuscript and JCAM submission source
-rules/          published rounded n=4 rules
-src/            independent reproduction formulas
-tests/          automated reference audits
-data/reference/ frozen values used only after computation
-results/        generated numerical outputs
-figures/        generated reproducibility figures
-docs/round41/   novelty, reference, and specialist-review package
-docs/submission submission checklist and cover letter
-```
+- `paper/current/` — current manuscript source, figures, and frozen PDF.
+- `round43/` — full hierarchy nodes, weights, alternation points, and summaries.
+- `certificates/round49/` — portable Arb selector certifier.
+- `certificates/round50/` — Krawczyk and global minimax interval certifiers.
+- `src/` — independent hierarchy and forward-AD/Arb verification paths.
+- `data/reference/` — frozen machine-readable reference artifacts.
+- `results/` — frozen outputs used for direct comparison.
+- `docs/round51/`, `docs/round52/` — reproduction and final scientific-audit reports.
+- `specialist_review/` — focused package for theorem, numerical-analysis, and novelty review.
+- `archive/` — valid historical artifacts from Rounds 42–50.
 
-## Scientific scope
-
-The exact alternation theory applies to ideal exact-moment rules. The
-published decimal rules are treated as fixed rounded operators and are
-validated directly. The shifted-Lorentzian calculation is a local
-stress test, not a shifted-family optimality theorem. The repository
-does not claim universal superiority over Gaussian or adaptive
-quadrature.
-
-## Manuscript
-
-- Review PDF: `paper/jcam/main.pdf`
-- LaTeX source: `paper/jcam/main.tex`
-- Bibliography: `paper/jcam/references.bib`
+See `START_HERE.md` and `PROJECT_MAP.md` for the recommended reading order.
 
 ## Citation
 
-Citation metadata is provided in `CITATION.cff`.
+Citation metadata is provided in `CITATION.cff`. Until a journal DOI is assigned, cite the manuscript and this repository URL.
 
 ## License
 
-No license has yet been selected. See `LICENSE_SELECTION_REQUIRED.md`
-before making the repository public.
+The source code in this repository is released under the **MIT License**. See `LICENSE`.
 
-## Reproducibility status
+The manuscript and third-party bibliographic material remain subject to their respective copyright terms; the MIT License primarily governs the repository software and associated original code.
 
-This is an internal independent reimplementation in a separate code
-path. It is not a third-party replication or proof-assistant
-verification.
+## Reproducibility and claim discipline
+
+The repository distinguishes:
+
+1. analytic proof;
+2. computer-assisted interval certification;
+3. numerical verification;
+4. empirical evidence;
+5. novelty statements still requiring specialist judgment.
+
+The detailed claim audit is in `docs/round52/THEOREM_CLAIM_AUDIT.csv`.

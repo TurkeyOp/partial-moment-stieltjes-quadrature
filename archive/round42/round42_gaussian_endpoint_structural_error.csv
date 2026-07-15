@@ -1,0 +1,5 @@
+node_pairs_n,moment_depth_k,method,worst_relative_error_centered_family,signed_error_at_worst,worst_b
+2,4,Gauss-Legendre-4,0.6881973326785529,-0.6881973326785529,0.08
+3,6,Gauss-Legendre-6,0.5494840599678924,-0.5494840599678924,0.08
+4,8,Gauss-Legendre-8,0.4300499305920852,-0.4300499305920852,0.08
+5,10,Gauss-Legendre-10,0.33098492381758027,-0.33098492381758027,0.08

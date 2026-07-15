@@ -1,0 +1,6 @@
+issue,severity,verdict,required_action
+Claim that k=n is the natural endpoint,Critical,Incorrect as stated,State full feasible range 0<=k<=2n and identify current study as the lower-half hierarchy.
+Moment-manifold dimension,Critical,Now resolved,Add rank proposition and dim(A_nk)=2n-k for k<=2n.
+Feasibility for k>2n,Critical,Impossible,Use the nonnegative squared-node polynomial contradiction.
+Numerical rules for n<k<2n,High,Missing,"Round 43: construct k=n+1,...,2n-1 for n=2,3,4."
+Current manuscript validity,High,Core results remain valid but scope wording is incomplete,Do not submit until the endpoint wording and upper-half discussion are fixed.
