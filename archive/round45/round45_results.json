@@ -1,0 +1,16 @@
+{
+  "round": 45,
+  "problems_tested": 6,
+  "starts_per_problem": 12,
+  "total_solver_runs": 72,
+  "all_problems_reconstructed": true,
+  "no_better_solution_found": true,
+  "all_best_errors_match_published_within_1e-5_relative": true,
+  "minimum_success_rate": 0.6666666666666666,
+  "minimum_dominant_error_cluster_fraction": 1.0,
+  "maximum_best_relative_error_difference": 2.376462991627319e-12,
+  "maximum_best_node_difference": 8.953948693601887e-14,
+  "maximum_best_weight_difference": 6.433742427702782e-14,
+  "optimizer_reconstruction_blocker_resolved": true,
+  "remaining_primary_blocker": "specialist novelty review"
+}

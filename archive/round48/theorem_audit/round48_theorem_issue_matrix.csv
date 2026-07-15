@@ -1,0 +1,13 @@
+id,severity,finding,risk,action,status
+T1,Major,Rule class was used as a manifold without separating parameters from operators.,Category/notation ambiguity in dimension theorem.,"Defined P_n, Theta_nk, and A_nk separately.",Fixed
+T2,Major,Gaussian endpoint uniqueness was invoked but not proved.,Endpoint theorem depended on an unstated uniqueness result.,Added orthogonal-polynomial and Vandermonde uniqueness proof.,Fixed
+T3,Major,Alternation proof omitted uniqueness of the positive partial-fraction representation.,Identical responses might appear to permit distinct rules.,Added a pole/residue uniqueness lemma and used it in the proof.,Fixed
+T4,Major,Coefficient-box function class and convergence assumptions were implicit.,The exact supremum theorem lacked a precise domain.,"Defined H(C,rho), proved uniform convergence, and bounded the defect series.",Fixed
+T5,Major,The exact mixed-risk theorem had no proof.,Additive attainability was asserted rather than established.,"Added compactness, sign alignment, and an attainment proof.",Fixed
+T6,Major,Selector wording could imply global optimality over all quadrature rules.,Overclaim beyond the finite hierarchy.,Restricted exact optimality to the precomputed candidate set.,Fixed
+T7,Critical,"Round-44 screening used sampled derivative inflation, not rigorous interval bounds.",The words validated/certified were not justified mathematically.,Downgraded all such claims to conservative numerical screening.,Fixed by wording; rigorous interval proof remains open
+T8,Major,Multi-start reconstruction was called independent.,Same equations and implementation do not constitute independent replication.,Renamed it a perturbed-initialization sensitivity study.,Fixed
+T9,Major,Exact ideal rules and rounded published operators were not separated early enough.,Floating-point residuals could be mistaken for exact theorem hypotheses.,Introduced Q* versus Q-tilde and conditional-theorem wording.,Fixed
+T10,Moderate,Hierarchy/path wording could imply connectedness or continuous dependence on k.,Neither property is proved.,Stated that k indexes a discrete nested hierarchy only.,Fixed
+T11,Moderate,Coverage percentage could be read probabilistically.,Area depends on coordinate choice and test domain.,Defined it as rectangular coordinate-area fraction.,Fixed
+T12,Moderate,Structural rules use relative minimax while mixed risk uses absolute error.,Potential appearance of inconsistent objectives.,Added a remark distinguishing construction and selection objectives.,Fixed

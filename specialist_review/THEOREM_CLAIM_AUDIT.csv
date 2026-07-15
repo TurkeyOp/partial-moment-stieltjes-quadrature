@@ -1,0 +1,19 @@
+id,claim,evidence_type,basis,status,scope,round52_decision
+C01,Moment constraints are equivalent to polynomial exactness through degree 2k-1,Analytic proof,Lemma: even moments plus symmetry,PROVED,All k>=1; k=0 empty constraint,No issue found
+C02,Moment constraints are equivalent to matching k Laurent coefficients at infinity,Analytic proof,Finite uniform expansion of 1/(s+y),PROVED,Fixed n and finite k,No issue found
+C03,Ordered positive Stieltjes response has a unique node-weight representation,Analytic proof,"Identity theorem, poles and residues",PROVED,Within ordered positive n-pair representation,No issue found
+C04,Feasible range is 0<=k<=2n,Analytic proof,Gaussian rule supplies all prefixes; squared-node polynomial excludes k>2n,PROVED,Positive ordered n-node transformed rules,No issue found
+C05,"dim Theta_{n,k}=2n-k",Analytic proof,Full row rank of moment map and regular-level-set theorem,PROVED,Embedded submanifold of open P_n; does not assert connectedness,No issue found
+C06,k=2n gives the unique 2n-point Gauss-Legendre rule,Analytic proof,Orthogonal-polynomial and Vandermonde uniqueness,PROVED,Endpoint in stated positive symmetric class,No issue found
+C07,Difference numerator degree is at most 2n-k-1,Analytic proof,Asymptotic cancellation plus denominator degree,PROVED,"Two rules in A_{n,k}",No issue found
+C08,2n-k+1 alternating global extrema exclude a strictly better competitor,Analytic proof,Zero count versus difference degree,PROVED,Sufficient only; not necessity or equal-norm uniqueness,Scope retained explicitly
+C09,The exact coefficient-box smooth risk equals C G_Q(rho),Analytic proof,Triangle inequality with coefficientwise sign attainment,PROVED,"Bounded Q, rho>1, stated coefficient box",No issue found
+C10,Mixed structural/smooth risk is C G_Q + c_max S_Q,Analytic proof,Independent sign choices and structural supremum attainment,PROVED,Stated additive model class,No issue found
+C11,Six upper-half fixed-sign systems have unique exact roots in explicit boxes,Computer-assisted proof,Strict Krawczyk inclusion with Arb intervals,CERTIFIED,Local uniqueness inside each box,Reproduced by separate forward-AD/Arb code path
+C12,Upper-half alternating level equals the global uniform norm,Computer-assisted proof,Interval derivative signs and curvature neighborhoods,CERTIFIED,"b in [0.08,0.12] for six systems",Global audit rerun but not independently reimplemented
+C13,"Six upper-half exact rules admit no strictly better competitor in A_{n,k}",Hybrid proof,C11+C12 plus analytic alternation theorem,CERTIFIED,Strict-improvement exclusion only,No global equal-norm uniqueness claim
+C14,Rounded n=4 selector has unique winner on 99.59563612937927% of stated coordinate area,Computer-assisted proof,Arb structural/defect enclosures and adaptive interval comparison,CERTIFIED,Finite nine-rule hierarchy and stated rectangle,0.4043638706207275% remains unresolved
+C15,"Full n=2,3,4 hierarchy data are internally consistent",Numerical reproduction,High-precision moment/extremum/stationarity evaluation,VERIFIED NUMERICALLY,21 frozen rounded rules,"Dense screen is evidence, not minimax proof"
+C16,Multi-start solutions form one accepted cluster near published upper-half rules,Empirical evidence,72 solves with same equations and solver,EMPIRICAL,Specified perturbations and acceptance tests,Not independent replication or global search
+C17,Centered k=0 rule is locally robust under small shifts,Empirical evidence,Finite shifted-family stress-test box,EMPIRICAL,"|a|<=0.03, b in [0.08,0.12]",No shifted minimax or invariance claim
+C18,Combined framework has no direct match in targeted literature audit,Targeted literature audit,Comparator matrix and updated formal references,UNCONFIRMED NOVELTY POSITION,Not an exhaustive novelty proof,External specialist prior-art review required

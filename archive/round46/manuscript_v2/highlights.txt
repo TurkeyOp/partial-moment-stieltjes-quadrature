@@ -1,0 +1,5 @@
+• A full moment hierarchy connects structural minimax to Gauss-Legendre.
+• The admissible manifold has dimension 2n-k for 0 <= k <= 2n.
+• A 2n-k+1 alternation pattern certifies minimaxity within the class.
+• Exact coefficient-space risk yields a model-aware quadrature selector.
+• Validated numerics assign 97.9067% of the tested selector domain.

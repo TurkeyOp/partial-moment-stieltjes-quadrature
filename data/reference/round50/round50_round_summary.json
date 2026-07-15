@@ -1,0 +1,35 @@
+{
+  "round": 50,
+  "status": "COMPLETED",
+  "all_six_krawczyk_certified": true,
+  "all_six_global_uniform_levels_certified": true,
+  "certified_problems": [
+    "2,3",
+    "3,4",
+    "3,5",
+    "4,5",
+    "4,6",
+    "4,7"
+  ],
+  "root_box_radius": "1e-12",
+  "newton_decimal_digits": 180,
+  "arb_decimal_digits": 180,
+  "manuscript_version": "2.4",
+  "manuscript_pages": 25,
+  "claim_scope": {
+    "proved": [
+      "unique exact fixed-sign system root inside each certified box",
+      "ordered nodes and positive weights",
+      "ordered internal extrema and E>0",
+      "global uniform relative-error level on [0.08,0.12]",
+      "no strictly better competitor in A_{n,k} by the existing alternation theorem"
+    ],
+    "not_proved": [
+      "global uniqueness among all equal-norm minimizers",
+      "uniqueness outside certified boxes",
+      "independent replication",
+      "lower-half interval root existence",
+      "universal superiority or global novelty"
+    ]
+  }
+}

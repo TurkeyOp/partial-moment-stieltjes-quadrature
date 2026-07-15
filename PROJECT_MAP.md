@@ -1,16 +1,17 @@
-# Project map
+# Public repository map
 
-| File or folder | Purpose |
+| Path | Purpose |
 |---|---|
-| `FINAL_PROJECT_PAPER.pdf` | Final readable research paper |
-| `paper/jcam/main.pdf` | Journal-formatted PDF |
-| `paper/jcam/main.tex` | LaTeX manuscript source |
-| `run_all.py` | Runs reproduction and all tests |
-| `src/core.py` | Mathematical formulas and error functions |
-| `src/reproduce.py` | Generates tables, figures and stress tests |
-| `tests/test_reproduction.py` | Automated scientific checks |
-| `rules/published_n4_rules.json` | Final published quadrature rules |
-| `results/` | Reproduced numerical tables |
-| `figures/` | Reproduced plots |
-| `data/reference/` | Frozen comparison data |
-| `docs/round41/` | Novelty, references and review documents |
+| `paper/current/` | Manuscript Version 2.5 source, figures, and frozen PDF |
+| `round43/` | Full hierarchy numerical inputs and alternation data |
+| `certificates/round49/` | Arb-based selector certification source |
+| `certificates/round50/` | Krawczyk, Jacobian, and global-error certification source |
+| `src/` | Independent hierarchy and forward-AD/Arb verifiers |
+| `data/reference/` | Frozen reference JSON/CSV certificates |
+| `results/` | Frozen rerun and independent-verification outputs |
+| `docs/round51/` | Independent reproduction and precision-finding reports |
+| `docs/round52/` | Final theorem, notation, reference, and literature audits |
+| `specialist_review/` | Focused materials for external scientific review |
+| `archive/` | Valid historical artifacts from Rounds 42–50 |
+| `tests/` | Lightweight public-release integrity tests |
+| `.github/workflows/` | GitHub Actions quick verification |

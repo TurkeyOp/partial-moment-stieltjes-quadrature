@@ -1,0 +1,5 @@
+• Positive Stieltjes rules are optimized over a continuum of pole widths.
+• Variable moment depth links structural minimax to Gauss-Legendre.
+• Exact mixed risk selects the appropriate rule for the modeled integrand.
+• Conservative validation assigns 97.9067% of the tested parameter domain.
+• Literature positioning separates the combined contribution from established ingredients.

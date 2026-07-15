@@ -1,0 +1,1396 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{amsmath,amssymb,amsthm,booktabs,graphicx}
+\usepackage{microtype}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{placeins}
+
+\journal{Journal of Computational and Applied Mathematics}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Model-Aware Positive Stieltjes Quadrature:
+From Structural Minimax to Gauss--Legendre}
+
+\author[inst1]{Tran Minh Duc\corref{cor1}}
+\cortext[cor1]{Corresponding author}
+\ead{ductranminh2107@gmail.com}
+
+\affiliation[inst1]{
+  organization={FPT University},
+  addressline={Lot E2a-7, D1 Street, Saigon Hi-Tech Park},
+  city={Ho Chi Minh City},
+  country={Vietnam}
+}
+
+\begin{abstract}
+Generalized Gaussian and rationally exact quadrature already exploit
+non-polynomial structure, while constrained rational minimax
+approximation is an established approximation problem. We study
+positive symmetric Stieltjes-response rules that minimize relative
+error uniformly over a continuum of Lorentzian widths while matching a
+variable prefix of polynomial moments. Within this class, \(n\)
+positive node pairs and moment depth \(k\) give the feasible range
+\(0\leq k\leq2n\), admissible dimension \(2n-k\), and the
+Gauss--Legendre endpoint at \(k=2n\). For \(k<2n\), a
+response-difference degree bound yields a \(2n-k+1\)-point sufficient
+alternation certificate. High-precision hierarchies for \(n=2,3,4\)
+quantify the trade-off between structural accuracy and polynomial
+protection. For six upper-half levels, Arb/Krawczyk calculations prove
+a unique exact zero of each fixed-sign moment--equioscillation system
+inside an explicit radius-\(10^{-12}\) box; interval derivative and
+curvature tests further prove that the alternating level is the global
+uniform relative-error norm on the structural interval. For a smooth
+residual with Chebyshev coefficients \(|a_j|\leq C\rho^{-j}\), an exact
+coefficient-space norm gives the model-aware risk
+\(G_k(\rho)+\tau S_k\). Ball arithmetic encloses all nine structural
+maxima and the Chebyshev defects of the rounded \(n=4\) operators.
+Adaptive interval comparison certifies a unique selector on 99.5956\%
+of the tested \((\rho,\log_{10}\tau)\)-coordinate area, leaving 0.4044\%
+unresolved near transition curves. A separate forward-automatic-
+differentiation/Arb code path reproduces all six local root
+certificates, while repository-wide regression checks reproduce the
+full 21-rule hierarchy and the interval selector calculation.
+\end{abstract}
+
+\begin{keyword}
+numerical quadrature \sep Stieltjes functions \sep rational minimax
+approximation \sep moment constraints \sep Gauss--Legendre quadrature
+\sep interval arithmetic
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+
+Polynomial exactness is a central organizing principle of numerical
+quadrature, but it is not the only way to spend a fixed node budget.
+When the dominant difficulty is a nearby pole, quadrature may instead
+incorporate rational functions chosen to match that structure
+\cite{gautschi1993,gautschi2001}. Generalized Gaussian quadrature extends positive
+exactness to Chebyshev systems and is naturally described through
+moment-space geometry \cite{huybrechs2017}. Positive interpolatory
+formulas and optimization-based moment-matching constructions provide
+additional general frameworks \cite{vandebos2019,glaubitz2020,
+keshavarzzadeh2018}.
+
+A second neighboring direction begins with rational approximation.
+Modern algorithms compute rational minimax approximants through adaptive
+barycentric representations and Remez-type iterations
+\cite{filip2018}. Interpolation-constrained rational minimax
+approximation, including higher-order constraints, is also established
+\cite{zhang2025}. For Markov and Stieltjes functions, relative rational
+approximation has a substantial theory \cite{beckermann2021}. Most
+directly, quadrature formulas can be derived from rational
+approximations of Cauchy transforms, with poles and residues becoming
+nodes and weights and Gauss quadrature connected to Pad\'e approximation
+at infinity \cite{horning2025}.
+
+These results rule out several broad novelty claims: pole-aware
+quadrature, positive exact quadrature, rational minimax,
+equioscillation, and constrained rational approximation are not new
+separately. The narrower problem studied here is to combine them in a
+model-aware design. At fixed node-pair count, we require a positive
+symmetric Stieltjes response, match a variable prefix of polynomial
+moments, and minimize relative error uniformly over a continuum of
+Lorentzian widths. The resulting family spans a structural minimax rule
+and the Gauss--Legendre endpoint. The practical question is then not
+only how to compute the rules, but how to select the moment depth when a
+smooth uncertain residual is superposed on the structural component.
+
+Within this stated class, the paper makes the following contributions:
+\begin{enumerate}[label=(\roman*)]
+\item it formulates the positive variable-moment continuum-minimax
+problem and characterizes its feasible range, dimension, and
+Gauss--Legendre endpoint;
+\item it gives a short class-specific degree/zero-count argument leading
+to a \(2n-k+1\)-point alternation certificate for every
+nonzero-dimensional level;
+\item it computes the complete path for \(n=2,3,4\), including the
+upper-half levels between the earlier lower-half designs and the
+Gaussian endpoint;
+\item it derives an exact mixed structural/smooth risk and uses it to
+select the moment depth across a two-parameter model domain;
+\item it gives computer-assisted existence and local uniqueness boxes for
+the six upper-half square systems and certifies their global alternation
+levels on the structural interval;
+\item it supplies a conservative interval-certified decision map, a shifted-pole
+scope test, and multi-start reconstruction from perturbed initializations;
+\item it reproduces the full 21-rule hierarchy and all six upper-half
+Krawczyk verdicts through a separate author-produced verification path
+using forward automatic differentiation over Arb intervals.
+\end{enumerate}
+
+The feasible-range theorem and the Gaussian endpoint are important
+structural components of the framework, but are not claimed as
+stand-alone inventions of moment or generalized Gaussian theory. A
+targeted literature search did not identify a direct source combining
+positivity, continuum Lorentzian minimax, variable moment depth, an exact
+mixed selector, and an interval-certified parameter partition. This is not an
+exhaustive proof of novelty; specialist prior-art review remains
+necessary. The claims are restricted to the symmetric positive class
+and do not imply universal superiority over Gaussian, adaptive, or
+problem-specific quadrature.
+
+\section{Problem formulation}
+
+Let
+\[
+I[f]=\int_{-1}^{1} f(x)\,dx,
+\qquad
+L_b(x)=\frac{1}{x^2+b^2},
+\qquad
+b\in B=[0.08,0.12].
+\]
+Set
+\[
+S=\{b^2:b\in B\}=[0.08^2,0.12^2].
+\]
+With \(s=b^2\) and \(y=x^2\),
+\[
+F(s)=I[L_{\sqrt{s}}]
+=\int_0^1\frac{y^{-1/2}}{s+y}\,dy
+=\frac{2}{\sqrt{s}}\arctan\frac{1}{\sqrt{s}},
+\qquad s\in S.
+\]
+
+For a fixed integer \(n\geq1\), define the ordered positive parameter
+domain
+\[
+\mathcal P_n
+=
+\left\{
+(y,w)\in\mathbb R^{2n}:
+0<y_1<\cdots<y_n<1,\quad w_j>0
+\right\}.
+\]
+Each \((y,w)\in\mathcal P_n\) determines the symmetric rule
+\[
+Q_{y,w}[f]
+=
+\sum_{j=1}^{n}w_j
+\left\{
+f(-\sqrt{y_j})+f(\sqrt{y_j})
+\right\}.
+\]
+Its response on the structural family is
+\[
+r_{y,w}(s)
+=
+Q_{y,w}[L_{\sqrt{s}}]
+=
+2\sum_{j=1}^{n}\frac{w_j}{s+y_j}.
+\]
+
+For an integer \(k\geq0\), let
+\[
+m^{(k)}
+=
+\left(\frac{1}{2\ell+1}\right)_{\ell=0}^{k-1}
+\]
+and define the moment map
+\[
+M_k(y,w)
+=
+\left(
+\sum_{j=1}^{n}w_jy_j^\ell
+\right)_{\ell=0}^{k-1}.
+\]
+For \(k=0\), both vectors are empty. The admissible parameter set and
+the corresponding rule class are
+\[
+\Theta_{n,k}
+=
+\left\{
+(y,w)\in\mathcal P_n:
+M_k(y,w)=m^{(k)}
+\right\},
+\qquad
+\mathcal A_{n,k}
+=
+\left\{
+Q_{y,w}:(y,w)\in\Theta_{n,k}
+\right\}.
+\]
+
+\begin{lemma}[Equivalent interpretations of the moment constraints]
+Let \(k\geq1\) and \((y,w)\in\mathcal P_n\). The following statements
+are equivalent:
+\begin{enumerate}[label=(\alph*)]
+\item \((y,w)\in\Theta_{n,k}\);
+\item \(Q_{y,w}\) is exact for every polynomial of degree at most
+\(2k-1\);
+\item
+\[
+r_{y,w}(s)-F(s)=O(s^{-k-1})
+\qquad
+\text{as }s\to+\infty.
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Symmetry gives exactness for odd polynomials. For even monomials,
+\[
+Q_{y,w}[x^{2\ell}]
+=
+2\sum_{j=1}^{n}w_jy_j^\ell,
+\qquad
+I[x^{2\ell}]
+=
+\frac{2}{2\ell+1}.
+\]
+This proves the equivalence of (a) and (b).
+
+For every fixed \(m\geq1\), uniformly for \(y\in[0,1]\),
+\[
+\frac{1}{s+y}
+=
+\sum_{\ell=0}^{m-1}
+(-1)^\ell y^\ell s^{-\ell-1}
++
+O(s^{-m-1}).
+\]
+Consequently,
+\[
+F(s)
+=
+2\sum_{\ell=0}^{m-1}
+\frac{(-1)^\ell}{2\ell+1}s^{-\ell-1}
++
+O(s^{-m-1}),
+\]
+whereas
+\[
+r_{y,w}(s)
+=
+2\sum_{\ell=0}^{m-1}
+(-1)^\ell
+\left(\sum_{j=1}^{n}w_jy_j^\ell\right)
+s^{-\ell-1}
++
+O(s^{-m-1}).
+\]
+Taking \(m=k\) proves that (a) implies (c). Conversely, if (c) holds,
+uniqueness of the coefficients in these finite asymptotic expansions
+forces equality of the first \(k\) moments, proving (c) implies (a).
+\end{proof}
+
+\begin{lemma}[Uniqueness of the representation]
+If \((y,w),(\widehat y,\widehat w)\in\mathcal P_n\) and
+\[
+r_{y,w}(s)=r_{\widehat y,\widehat w}(s)
+\]
+on a nonempty open real interval, then
+\[
+(y,w)=(\widehat y,\widehat w).
+\]
+\end{lemma}
+
+\begin{proof}
+The identity theorem makes the two rational functions identical. Their
+simple poles are \(-y_j\) and \(-\widehat y_j\), and the corresponding
+residues are \(2w_j\) and \(2\widehat w_j\). Equality of poles and
+residues, together with the imposed ordering, gives equality of the
+parameter vectors.
+\end{proof}
+
+\section{Feasible-range characterization}
+
+\begin{theorem}[Feasible range, regular dimension, and Gaussian endpoint]
+For \(n\geq1\), the following statements hold:
+\begin{enumerate}[label=(\roman*)]
+\item \(\Theta_{n,k}\neq\varnothing\) for every integer
+\(0\leq k\leq2n\);
+\item for \(0\leq k\leq2n\), \(\Theta_{n,k}\) is an embedded smooth
+submanifold of the open set \(\mathcal P_n\), of dimension
+\[
+\dim\Theta_{n,k}=2n-k;
+\]
+\item \(\Theta_{n,k}=\varnothing\) for every integer \(k\geq2n+1\);
+\item \(\Theta_{n,2n}\) is a singleton, and its associated symmetric
+rule is the classical \(2n\)-point Gauss--Legendre rule.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let \(d\mu(y)=y^{-1/2}\,dy\) on \([0,1]\). By the standard Gaussian
+quadrature theorem for a positive measure with infinite support, there
+exists a unique \(n\)-node rule with positive weights that is exact for
+all polynomials of degree at most \(2n-1\). Write its nodes and weights
+as \(y_j\) and \(2w_j\). Then
+\[
+\sum_{j=1}^{n}w_jy_j^\ell
+=
+\frac{1}{2}\int_0^1y^\ell\,d\mu(y)
+=
+\frac{1}{2\ell+1},
+\qquad
+0\leq\ell\leq2n-1.
+\]
+Thus \(\Theta_{n,2n}\neq\varnothing\), and every lower moment prefix is
+also feasible. The case \(k=0\) is simply
+\(\Theta_{n,0}=\mathcal P_n\).
+
+For \(1\leq k\leq2n\), suppose a linear combination of the rows of
+\(DM_k(y,w)\) vanishes, and define
+\[
+p(t)=\sum_{\ell=0}^{k-1}c_\ell t^\ell.
+\]
+The columns corresponding to \(w_j\) give \(p(y_j)=0\). The columns
+corresponding to \(y_j\) give \(w_jp'(y_j)=0\), and positivity gives
+\(p'(y_j)=0\). Hence every \(y_j\) is a double root of \(p\). Since
+\(\deg p\leq k-1\leq2n-1\), this is possible only when \(p\equiv0\).
+Therefore \(DM_k\) has row rank \(k\) at every point of
+\(\mathcal P_n\). The regular-level-set theorem gives the stated
+embedded-manifold dimension.
+
+If \(k\geq2n+1\), the constraints include exactness for the transformed
+polynomial
+\[
+g(y)=\prod_{j=1}^{n}(y-y_j)^2,
+\]
+which has degree \(2n\), is nonnegative, and is not identically zero.
+The discrete rule gives
+\[
+2\sum_{j=1}^{n}w_jg(y_j)=0,
+\]
+whereas
+\[
+\int_0^1g(y)\,d\mu(y)>0,
+\]
+a contradiction.
+
+It remains to identify the endpoint uniquely. Let
+\[
+\pi_n(y)=\prod_{j=1}^{n}(y-y_j)
+\]
+for any element of \(\Theta_{n,2n}\). For every polynomial \(q\) of
+degree at most \(n-1\), exactness through degree \(2n-1\) gives
+\[
+\int_0^1\pi_n(y)q(y)\,d\mu(y)
+=
+2\sum_{j=1}^{n}w_j\pi_n(y_j)q(y_j)
+=
+0.
+\]
+Thus \(\pi_n\) is the unique monic degree-\(n\) orthogonal polynomial
+for \(\mu\), so the nodes are uniquely determined. Exactness for
+degrees \(0,\ldots,n-1\) then determines the weights uniquely through a
+nonsingular Vandermonde system. Under \(y=x^2\), the resulting
+symmetric \(2n\)-node rule is exact for all polynomials of degree at
+most \(4n-1\), and therefore is the \(2n\)-point Gauss--Legendre rule.
+\end{proof}
+
+\begin{remark}
+The sets \(\Theta_{n,k}\) are nested as moment constraints are added.
+The selected minimax rules form a discrete hierarchy indexed by \(k\);
+no connectedness of the level sets, and no continuous path of
+minimizers in \(k\), is asserted.
+\end{remark}
+
+\section{Minimax characterization}
+
+For \((y,w)\in\mathcal P_n\), write
+\[
+q_y(s)=\prod_{j=1}^{n}(s+y_j),
+\qquad
+r_{y,w}(s)=\frac{p_{y,w}(s)}{q_y(s)},
+\]
+where \(\deg p_{y,w}\leq n-1\).
+
+\begin{proposition}[Difference-numerator degree]
+Let \(Q_1,Q_2\in\mathcal A_{n,k}\) with \(0\leq k\leq2n\). Then either
+their responses are identical or
+\[
+r_{Q_1}(s)-r_{Q_2}(s)
+=
+\frac{H(s)}{q_1(s)q_2(s)},
+\qquad
+\deg H\leq2n-k-1.
+\]
+For \(k=2n\), the second alternative is impossible.
+\end{proposition}
+
+\begin{proof}
+The unreduced numerator
+\[
+H=p_1q_2-p_2q_1
+\]
+has degree at most \(2n-1\). For \(k=0\), both responses are
+\(O(s^{-1})\), so their difference is \(O(s^{-1})\). For \(k\geq1\),
+the moment lemma gives
+\[
+r_{Q_1}(s)-r_{Q_2}(s)=O(s^{-k-1}).
+\]
+Since \(q_1q_2\) is monic of degree \(2n\), a nonzero polynomial
+numerator must satisfy
+\[
+\deg H-2n\leq-k-1,
+\]
+which is the claimed bound.
+\end{proof}
+
+Define
+\[
+\varepsilon_Q(s)=\frac{r_Q(s)}{F(s)}-1,
+\qquad
+\|\varepsilon_Q\|_{\infty,S}
+=
+\max_{s\in S}|\varepsilon_Q(s)|.
+\]
+
+\begin{theorem}[Class-specific alternation certificate]
+Let \(0\leq k<2n\) and let \(Q^\star\in\mathcal A_{n,k}\). Suppose
+there are
+\[
+m=2n-k+1
+\]
+distinct ordered points
+\[
+s_1<\cdots<s_m
+\quad\text{in }S
+\]
+and a number \(E>0\) such that
+\[
+\varepsilon_{Q^\star}(s_i)=(-1)^i\sigma E,
+\qquad
+\sigma\in\{-1,1\},
+\]
+and
+\[
+E=\|\varepsilon_{Q^\star}\|_{\infty,S}.
+\]
+Then no rule in \(\mathcal A_{n,k}\) has strictly smaller uniform
+relative error on \(S\).
+\end{theorem}
+
+\begin{proof}
+Assume that \(Q\in\mathcal A_{n,k}\) satisfies
+\[
+\|\varepsilon_Q\|_{\infty,S}<E.
+\]
+At every \(s_i\), the difference
+\[
+\varepsilon_{Q^\star}(s_i)-\varepsilon_Q(s_i)
+\]
+has the sign of \(\varepsilon_{Q^\star}(s_i)\). These signs alternate,
+so continuity gives at least \(m-1=2n-k\) distinct zeros in the open
+subintervals \((s_i,s_{i+1})\). Since \(F(s)>0\) on \(S\), these are
+zeros of \(r_{Q^\star}-r_Q\). The difference-numerator proposition
+allows at most \(2n-k-1\) distinct zeros unless the responses are
+identical. In the identical-response case, uniqueness of the ordered
+positive representation gives \(Q=Q^\star\), which is incompatible
+with strict improvement. This contradiction proves the result.
+\end{proof}
+
+\begin{remark}
+The theorem is a sufficient global-minimax certificate within
+\(\mathcal A_{n,k}\). It does not prove necessity of alternation,
+uniqueness among equal-norm minimizers, or existence of an exact
+equioscillating parameter vector from floating-point residuals. The
+endpoint \(k=2n\) is zero-dimensional and is fixed by its moments.
+\end{remark}
+
+
+\section{Numerical realization of the model-aware hierarchy}
+
+The nonlinear construction imposes exact moment equations, alternating
+equal-magnitude relative errors, and stationarity at internal extrema.
+We denote the ideal mathematical rule by \(Q_{n,k}^\star\) and its
+published decimal operator by \(\widetilde Q_{n,k}\). Lower-half rules
+were obtained first, and the upper-half problems were continued toward
+the Gaussian endpoint. The table and figures use the published decimal
+operators. For the six upper-half levels, Section~\ref{sec:round50}
+upgrades the floating-point roots to computer-assisted exact roots and
+certifies that their alternating levels are the global relative-error
+norms on the structural interval. The lower-half constructions remain
+high-precision numerical evidence rather than interval root certificates.
+All reported operators have ordered nodes and positive weights.
+
+\begin{table}[ht]
+\centering
+\caption{Complete \(n=4\) hierarchy. The endpoint \(k=8\) is
+zero-dimensional; therefore the alternation column is not applicable.}
+\label{tab:full-hierarchy}
+\small
+\begin{tabular}{cccccc}
+\toprule
+\(k\) & Dimension & Exactness & Alt. points &
+Worst relative error & Min. \(w_j\)\\
+\midrule
+0 & 8 & -- & 9 & 1.490623e-10 & 0.039147 \\
+1 & 7 & 1 & 8 & 2.460626e-09 & 0.044528 \\
+2 & 6 & 3 & 7 & 4.048641e-08 & 0.051670 \\
+3 & 5 & 5 & 6 & 6.653546e-07 & 0.061646 \\
+4 & 4 & 7 & 5 & 1.092819e-05 & 0.076595 \\
+5 & 3 & 9 & 4 & 1.794333e-04 & 0.101407 \\
+6 & 2 & 11 & 3 & 2.943219e-03 & 0.149011 \\
+7 & 1 & 13 & 2 & 4.597982e-02 & 0.126194 \\
+8 & 0 & 15 & -- & 4.300499e-01 & 0.101229 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.84\linewidth]{figures/figure1_full_hierarchy.png}
+\caption{Worst centered relative error for the full feasible
+hierarchies \(0\leq k\leq2n\), \(n=2,3,4\). The final point of each
+curve is the corresponding Gauss--Legendre rule.}
+\label{fig:full-hierarchy}
+\end{figure}
+
+For \(n=4\), the error grows from \(1.49\times10^{-10}\) at \(k=0\) to
+\(4.30\times10^{-1}\) at the Gauss endpoint. The upper-half values
+\(k=5,6,7\) continue the approximately constant finite-range price per
+additional moment before the error enters an order-one regime. This
+pattern is empirical and is not claimed as an asymptotic theorem.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.82\linewidth]{figures/figure2_alternation.png}
+\caption{Representative normalized computed alternation patterns from the lower
+endpoint (\(k=0\)), midpoint (\(k=4\)), and upper half (\(k=7\)) of the
+\(n=4\) hierarchy.}
+\label{fig:alternation}
+\end{figure}
+
+\FloatBarrier
+
+\section{Computer-assisted existence and upper-half minimax certification}
+\label{sec:round50}
+
+For each upper-half pair
+\[
+(2,3),\ (3,4),\ (3,5),\ (4,5),\ (4,6),\ (4,7),
+\]
+put \(d=2n-k\), fix \(b_0=0.08\) and \(b_d=0.12\), and use the
+unknown vector
+\[
+z=(y_1,\ldots,y_n,w_1,\ldots,w_n,b_1,\ldots,b_{d-1},E).
+\]
+It has \(4n-k\) components. The square system consists of the \(k\)
+moment equations, \(d+1\) signed equal-error equations, and \(d-1\)
+stationarity equations. The signs are fixed by the ordered alternation
+data and begin with negative error at \(b=0.08\). The earlier
+alternation theorem is written in \(s=b^2\); because \(b\mapsto b^2\)
+is strictly increasing and \(2b>0\) on the structural interval, the
+ordered extrema, uniform norm, and stationarity conditions are
+equivalent in the two coordinates.
+
+Starting from the published decimals, Newton iteration at 180 decimal
+digits produces a center \(z_0\). Let \(X\) be the coordinatewise ball
+of absolute radius \(10^{-12}\) about that center, let
+\(Y\) be a decimal point preconditioner computed from
+\(F'(z_0)^{-1}\), and define the Krawczyk image
+\[
+K(z_0,X)=z_0-YF(z_0)+\{I-YF'(X)\}(X-z_0).
+\]
+All algebraic and transcendental interval evaluations use Arb with 180
+decimal digits. The inclusion argument follows the standard interval
+Newton--Krawczyk framework \cite{moore2009,rump2010}, with Arb providing
+outward-rounded midpoint-radius arithmetic \cite{johansson2017}. Table~\ref{tab:krawczyk} reports the two principal
+checks. The componentwise inclusion margin is the minimum distance from
+\(K_i\) to the corresponding boundary of \(X_i\).
+
+\begin{table}[ht]
+\centering
+\caption{Krawczyk certificates for the six upper-half square systems.}
+\label{tab:krawczyk}
+\scriptsize
+\begin{tabular}{ccccc}
+\toprule
+\((n,k)\) & Unknowns & Int. ext. & Norm upper & Inclusion margin\\
+\midrule
+\((2,3)\) & 5  & 0 & 1.741e-09 & 9.99986e-13\\
+\((3,4)\) & 8  & 1 & 2.741e-08 & 9.99999e-13\\
+\((3,5)\) & 7  & 0 & 3.432e-09 & 9.99991e-13\\
+\((4,5)\) & 11 & 2 & 5.823e-07 & 9.99997e-13\\
+\((4,6)\) & 10 & 1 & 4.376e-08 & 9.99999e-13\\
+\((4,7)\) & 9  & 0 & 3.439e-08 & 9.99995e-13\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In every case, \(K(z_0,X)\subset\operatorname{int}X\) and the displayed
+matrix norm is below one. Hence the fixed-sign square system has one
+and only one exact zero in the stated box. Direct interval margins also
+verify
+\[
+0<y_1<\cdots<y_n<1,\qquad w_j>0,
+\]
+ordered internal extrema in \((0.08,0.12)\), and \(E>0\). This is local
+uniqueness of a system root inside the certified box; it is not a claim
+of global uniqueness among all minimizers.
+
+A second interval audit closes the remaining supremum condition in the
+alternation theorem. For each internal extremum, the second derivative
+of the relative error has the sign opposite to the extremal error on a
+radius-\(10^{-5}\) neighborhood. On the complementary subintervals,
+adaptive Arb subdivision proves the expected strict sign of the first
+derivative. The largest audit, \((n,k)=(4,5)\), visits 6697 derivative
+subintervals; its smallest signed derivative margin is
+\(7.55\times10^{-8}\), while its smallest curvature margin is 3.39.
+Together with the exact equations at the certified zero, these signs
+show that the listed alternating value \(E\) is the global uniform
+relative-error norm on \([0.08,0.12]\).
+
+\begin{proposition}[Computer-assisted upper-half certification]
+For each of the six pairs above, there exists a unique zero of the
+specified fixed-sign square system in the reported radius-\(10^{-12}\)
+box. Its nodes are ordered, its weights are positive, its internal
+extrema are ordered, and its signed level is nonzero. Moreover, the
+relative error has global norm \(E\) and the required
+\(2n-k+1\)-point alternation. Consequently, the associated exact rule
+admits no strictly better competitor in \(\mathcal A_{n,k}\).
+\end{proposition}
+
+\begin{proof}
+The Krawczyk inclusion and the norm bound prove existence and uniqueness
+of the system zero in each box and nonsingularity of every interval
+Jacobian covered by the certificate. The explicit coordinate margins
+prove ordering and positivity. The interval first- and second-derivative
+signs establish monotonicity between consecutive certified extrema and
+the correct local maximum/minimum orientation inside each extremum
+neighborhood. Since the square-system equations give the alternating
+values \(\pm E\) exactly, no larger absolute error occurs on the
+structural interval. The final statement follows from the
+class-specific alternation theorem.
+\end{proof}
+
+The machine-readable boxes, residual intervals, derivative-segment
+audits, source code, input hashes, and exact rerun commands accompany
+the manuscript. The certificate is for the reconstructed mathematical
+systems and does not imply global uniqueness outside the certified
+boxes.
+
+A reproducibility audit subsequently identified a non-rigorous
+center-generation detail in the archived script: the two \texttt{mpmath}
+endpoint constants had been constructed at import-time default
+precision before the working precision was raised. This affected only
+the diagnostic Newton center, not the rigorous system, because every
+Arb evaluation used the exact decimal endpoints \(0.08\) and \(0.12\).
+Reconstructing the endpoints after setting precision reduced the
+maximum point residual to below \(2\times10^{-180}\), and the corrected
+script again certified all six boxes.
+
+\FloatBarrier
+
+\section{Independent reproduction and cross-artifact audit}
+\label{sec:round51}
+
+A separate verification path was written without importing the Round~50
+certifier and without copying its handwritten analytic Jacobian. It
+forms the square-system Jacobian by forward automatic differentiation,
+first over high-precision point arithmetic and then over Arb intervals.
+Applied to the precision-corrected centers and the same frozen input
+data, it independently reproduces strict Krawczyk inclusion for all six
+upper-half boxes. The largest reproduced bound on
+\(\lVert I-YF'(X)\rVert_\infty\) is below
+\(6.7\times10^{-7}\). The term ``independent'' here refers to an
+author-produced independent code path, not to third-party replication.
+
+The same audit evaluates every frozen rule in the complete hierarchy
+\[
+(n,k),\qquad n=2,3,4,\quad 0\leq k\leq2n.
+\]
+All 21 operators pass ordering, positivity, moment, supplied
+alternation-point, and stationarity checks. Across the hierarchy, the
+largest reproduced moment residual is \(6.28\times10^{-16}\), the
+largest supplied-extremum value discrepancy is
+\(5.54\times10^{-15}\), and the largest internal-stationarity residual
+is \(1.48\times10^{-13}\). A 50,001-point dense screen provides an
+additional numerical continuum check but is not used as a proof of
+minimaxity or root existence.
+
+The Round~49 interval selector was rerun from its portable certifier and
+reproduced all reported counts and the certified fraction
+0.9959563612937927. Repository-wide consistency tests verify the hashes
+of the Round~43 inputs used by Round~50, agreement of the three
+upper-half certificate paths, and agreement between generated data and
+reported manuscript constants. In the frozen audit environment, 35 of
+35 cross-artifact checks and 7 of 7 automated regression tests pass.
+These checks strengthen reproducibility but do not replace external
+specialist review or an execution on a separately provisioned machine.
+
+\section{Exact coefficient-space rule selection}
+
+For \(C\geq0\) and \(\rho>1\), define
+\[
+\mathcal H(C,\rho)
+=
+\left\{
+h:
+h(x)=\sum_{j=0}^{\infty}a_jT_j(x),
+\quad
+|a_j|\leq C\rho^{-j}
+\right\}.
+\]
+Because \(|T_j(x)|\leq1\) on \([-1,1]\) and
+\(\sum_j\rho^{-j}<\infty\), every series in this definition converges
+absolutely and uniformly and therefore represents a continuous
+function.
+
+For a fixed bounded quadrature functional \(Q\), define
+\[
+\Delta_j(Q)=I[T_j]-Q[T_j]
+\]
+and
+\[
+G_Q(\rho)
+=
+\sum_{j=0}^{\infty}\rho^{-j}|\Delta_j(Q)|.
+\]
+The series converges because
+\[
+|\Delta_j(Q)|
+\leq
+\|I-Q\|_{C[-1,1]\to\mathbb R}.
+\]
+
+\begin{theorem}[Exact coefficient-box norm]
+For every fixed bounded quadrature functional \(Q\),
+\[
+\sup_{h\in\mathcal H(C,\rho)}
+|I[h]-Q[h]|
+=
+C G_Q(\rho).
+\]
+\end{theorem}
+
+\begin{proof}
+Uniform convergence permits termwise application of the bounded
+functional \(I-Q\), so
+\[
+(I-Q)h
+=
+\sum_{j=0}^{\infty}a_j\Delta_j(Q).
+\]
+The coefficient bounds give
+\[
+|(I-Q)h|
+\leq
+C\sum_{j=0}^{\infty}
+\rho^{-j}|\Delta_j(Q)|.
+\]
+Equality is attained by choosing
+\[
+a_j
+=
+C\rho^{-j}\operatorname{sign}\Delta_j(Q),
+\]
+with any value in \([-C\rho^{-j},C\rho^{-j}]\) when
+\(\Delta_j(Q)=0\). The resulting series belongs to
+\(\mathcal H(C,\rho)\).
+\end{proof}
+
+For \(c_{\max}\geq0\), define the parameterized mixed class
+\[
+\mathcal F(C,\rho,c_{\max})
+=
+\left\{
+h+cL_b:
+h\in\mathcal H(C,\rho),\
+|c|\leq c_{\max},\
+b\in B
+\right\}.
+\]
+For a fixed rule, let
+\[
+S_Q
+=
+\max_{b\in B}|I[L_b]-Q[L_b]|.
+\]
+The maximum exists because \(B\) is compact and the error is
+continuous in \(b\).
+
+\begin{theorem}[Exact mixed-class risk]
+For every fixed bounded quadrature functional \(Q\),
+\[
+\sup_{f\in\mathcal F(C,\rho,c_{\max})}
+|I[f]-Q[f]|
+=
+C G_Q(\rho)+c_{\max}S_Q.
+\]
+\end{theorem}
+
+\begin{proof}
+The upper bound follows from the triangle inequality and the preceding
+theorem. Choose \(b_\star\in B\) attaining \(S_Q\). Select
+\(h_\star\in\mathcal H(C,\rho)\) such that
+\[
+(I-Q)h_\star=C G_Q(\rho),
+\]
+and choose
+\[
+c_\star
+=
+c_{\max}
+\operatorname{sign}
+\left(I[L_{b_\star}]-Q[L_{b_\star}]\right).
+\]
+Then both error contributions have the same sign and their absolute
+values add, proving attainability.
+\end{proof}
+
+Let \(Q_0,\ldots,Q_{2n}\) be the finite hierarchy of candidate rules.
+When \(C>0\), put \(\tau=c_{\max}/C\). The exact worst-case selector
+within this candidate set is
+\[
+k^\star(\rho,\tau)
+\in
+\arg\min_{0\leq k\leq2n}
+\left\{
+G_{Q_k}(\rho)+\tau S_{Q_k}
+\right\}.
+\]
+
+\begin{remark}
+This selector is exact for the stated coefficient box and structural
+family, but only among the precomputed candidates
+\(\{Q_0,\ldots,Q_{2n}\}\). It does not assert global optimality over all
+quadrature rules. The rules were constructed by a relative structural
+minimax objective, whereas \(S_Q\) is the absolute structural error
+appropriate to the additive mixed class.
+\end{remark}
+
+
+\begin{table}[ht]
+\centering
+\caption{Full \(n=4\) structural and smooth-risk trade-off at
+\(\rho=1.5\).}
+\label{tab:risk-components}
+\small
+\begin{tabular}{ccc}
+\toprule
+\(k\) & Structural screening margin \(S_k\) & \(G_k(1.5)\)\\
+\midrule
+0 & 5.55627e-09 & 9.11242e-01 \\
+1 & 9.17189e-08 & 3.95465e-01 \\
+2 & 1.50911e-06 & 2.04657e-01 \\
+3 & 2.48007e-05 & 9.59856e-02 \\
+4 & 4.07341e-04 & 4.49242e-02 \\
+5 & 6.68824e-03 & 2.14018e-02 \\
+6 & 1.09706e-01 & 1.17665e-02 \\
+7 & 1.71386e+00 & 6.62192e-03 \\
+8 & 1.60298e+01 & 3.42291e-03 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{figures/figure3_risk_tradeoff.png}
+\caption{Each added moment decreases the smooth-risk norm but increases
+the Lorentzian structural error. Labels indicate the moment depth
+\(k\).}
+\label{fig:risk-tradeoff}
+\end{figure}
+
+\section{Computer-assisted interval certification for the rounded rules}
+
+The exact risk theorems apply to each fixed operator. For the published
+decimal operators \(\widetilde Q_k\), we treat every displayed decimal
+node and weight as an exact decimal input enclosed by ball arithmetic.
+All transcendental and algebraic evaluations in the structural stage
+use 80-decimal-digit Python-FLint/Arb balls
+\cite{johansson2017}.
+
+For each \(k=0,\ldots,8\), let
+\[
+e_k(b)
+=
+I[L_b]-\widetilde Q_k[L_b].
+\]
+The interval \([0.08,0.12]\) is adaptively bisected. On each subinterval
+\(X\), two enclosures are computed: the natural interval extension
+\(e_k(X)\), and the mean-value enclosure
+\[
+e_k(m)+e'_k(X)(X-m),
+\]
+where \(m\) is the midpoint. The smaller valid absolute upper bound is
+used in a branch-and-bound search. Point evaluations provide lower
+witnesses. This produces rigorous enclosures
+\[
+S_k
+=
+\max_{b\in[0.08,0.12]}|e_k(b)|
+\in[\underline S_k,\overline S_k].
+\]
+All nine largest lower witnesses occur at \(b=0.08\); the maximum
+relative enclosure width is
+\[
+1.437e-10.
+\]
+
+For the smooth component, each Chebyshev defect
+\[
+\Delta_j(\widetilde Q_k)
+=
+I[T_j]-\widetilde Q_k[T_j]
+\]
+is enclosed by Arb through degree \(J=500\). Since
+\[
+|\Delta_j(\widetilde Q_k)|
+\leq
+\|I-\widetilde Q_k\|
+\leq
+2+2\sum_iw_i,
+\]
+the remaining tail is bounded by
+\[
+\sum_{j>J}\rho^{-j}|\Delta_j|
+\leq
+\left(2+2\sum_iw_i\right)
+\frac{\rho^{-(J+1)}}{1-\rho^{-1}}.
+\]
+The nonnegative finite sums are evaluated by outward-rounded Horner
+recurrences. On a cell
+\[
+[\rho_-,\rho_+]\times[t_-,t_+],
+\qquad t=\log_{10}\tau,
+\]
+monotonicity gives rigorous lower and upper risk bounds from
+\(\rho_+,\rho_-\) and \(10^{t_-},10^{t_+}\), respectively. A cell is
+assigned to \(k\) only when the upper bound for \(k\) is strictly below
+the lower bound for every competitor.
+
+Adaptive binary subdivision to depth
+\(d=24\) visits
+344,615 cells and certifies a
+unique winner on
+\[
+99.595636\%
+\]
+of the rectangular coordinate area
+\[
+(\rho,\log_{10}\tau)
+\in[1.05,5]\times[-12,12].
+\]
+The remaining
+\[
+0.404364\%
+\]
+is unassigned and lies near transition curves. The percentage is an
+area fraction in these coordinates, not a probability statement.
+
+\begin{table}[ht]
+\centering
+\caption{Fraction of the interval-certified coordinate area assigned
+to each moment depth.}
+\label{tab:selection-fractions}
+\small
+\begin{tabular}{cc}
+\toprule
+\(k\) & Fraction of certified area\\
+\midrule
+0 & 21.993\% \\
+1 & 9.179\% \\
+2 & 8.320\% \\
+3 & 8.493\% \\
+4 & 8.536\% \\
+5 & 8.572\% \\
+6 & 8.312\% \\
+7 & 7.054\% \\
+8 & 19.540\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.84\linewidth]{figures/figure4_certified_selector.png}
+\caption{Interval-certified full-hierarchy selector. Blank regions
+remain unresolved because candidate risk intervals overlap.}
+\label{fig:selector}
+\end{figure}
+
+The certificate applies to the rounded operators, coefficient box,
+structural interval, and coordinate domain stated above. It is logically
+separate from the upper-half root certificates in
+Section~\ref{sec:round50}: the selector uses the published decimal
+operators, whereas the Krawczyk calculations establish exact roots only
+for the six upper-half nonlinear systems.
+
+\FloatBarrier
+
+\section{External validity and reconstruction}
+
+\subsection{Small pole-location mismatch}
+
+Without retraining, the centered rules were tested on
+\[
+L_{a,b}(x)=\frac{1}{(x-a)^2+b^2},
+\qquad
+|a|\leq0.03,
+\quad
+0.08\leq b\leq0.12.
+\]
+
+\begin{table}[ht]
+\centering
+\caption{Worst relative errors on the shifted-Lorentzian stress-test
+box.}
+\label{tab:shifted}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Method & Evaluations & Worst error & Worst \(|a|\) & Worst \(b\)\\
+\midrule
+PMC--k0 & 8 & 4.522336e-06 & 0.0300 & 0.0800 \\
+PMC--k4 & 8 & 1.025564e-03 & 0.0300 & 0.0845 \\
+Composite--Simpson--9 & 9 & 7.426762e-02 & 0.0300 & 0.1200 \\
+Gauss--Legendre--8 & 8 & 4.300499e-01 & 0.0000 & 0.0800 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.82\linewidth]{figures/figure5_shifted_stress.png}
+\caption{Stress test under small pole-location mismatch. The comparison
+supports local structural robustness, not shifted-family minimaxity or
+universal superiority.}
+\label{fig:shifted}
+\end{figure}
+
+The \(k=0\) rule has worst relative error
+\(4.52\times10^{-6}\), whereas the Gauss endpoint has worst error
+\(4.30\times10^{-1}\) on the same box. The centered error is nevertheless
+inflated by more than four orders of magnitude, so the correct
+interpretation is local robustness rather than shift invariance.
+
+\subsection{Multi-start reconstruction}
+
+Using the same equioscillation equations and solver implementation, the six upper-half problems
+\[
+(2,3),\ (3,4),\ (3,5),\ (4,5),\ (4,6),\ (4,7)
+\]
+were reconstructed from twelve perturbed starts each. A run was accepted
+only when nodes were ordered, weights were positive, moment residuals
+were below \(10^{-10}\), and scaled equioscillation residuals were below
+\(10^{-8}\).
+
+\begin{table}[ht]
+\centering
+\caption{Multi-start reconstruction of the upper-half
+rules. Error differences are relative to the published minimax level.}
+\label{tab:multistart}
+\scriptsize
+\begin{tabular}{ccccc}
+\toprule
+\((n,k)\) & Accepted starts & Error difference &
+Max. node difference & Max. weight difference\\
+\midrule
+$(2,3)$ & 12/12 & 2.64e-16 & 5.55e-17 & 5.55e-17 \\
+$(3,4)$ & 10/12 & 6.78e-14 & 4.44e-16 & 5.00e-16 \\
+$(3,5)$ & 12/12 & 5.31e-14 & 1.29e-14 & 1.32e-14 \\
+$(4,5)$ & 8/12 & 2.38e-12 & 4.44e-15 & 4.27e-15 \\
+$(4,6)$ & 11/12 & 9.22e-14 & 1.03e-14 & 1.05e-14 \\
+$(4,7)$ & 12/12 & 5.11e-13 & 8.95e-14 & 6.43e-14 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All accepted solutions in each problem formed a single error-level
+cluster. No accepted start found a better rule by more than
+\(10^{-6}\) relative, and the maximum best-rule error difference was
+\(2.38\times10^{-12}\). This is a sensitivity test with perturbed initializations. It reduces the risk of an isolated local numerical artifact, but it is neither an independent implementation nor a proof of global uniqueness.
+
+\section{Relation to prior work and novelty scope}
+
+\subsection{Structure-aware and generalized quadrature}
+
+Gautschi's rational Gauss-type rules and later survey establish the principle that a
+quadrature formula can integrate rational functions selected to match
+important external poles \cite{gautschi1993,gautschi2001}. The present work therefore
+does not introduce pole-aware quadrature. Its structural objective is
+different: it minimizes relative error over a continuum of Lorentzian
+widths instead of enforcing exactness at a finite set of prescribed
+poles. Related Gauss-type formulas with external denominator zeros
+further illustrate the breadth of rationally structured quadrature
+\cite{tomanovic2023}.
+
+Generalized Gaussian quadrature for Chebyshev systems supplies positive
+interior-node rules exact for non-polynomial spaces, and complete
+Chebyshev systems support stepwise increases in exactness
+\cite{huybrechs2017}. Positive exact formulas, prescribed-node moment constructions, and
+positive-node geometry are also well developed
+\cite{vandebos2019,glaubitz2020,nailwal2024}.
+Accordingly, neither positivity nor an ordered hierarchy of exactness is
+claimed as new. Here the moment depth indexes a family selected by a
+continuum Stieltjes minimax criterion at fixed node-pair count.
+
+Optimization-based nested quadrature shows that nonlinear
+moment-matching systems can be solved flexibly
+\cite{keshavarzzadeh2018}. Our nonlinear solver and multi-start study
+are reproducibility mechanisms, not the principal conceptual
+contribution.
+
+\subsection{Rational approximation and minimax constraints}
+
+Rational minimax approximation and equioscillation are classical;
+adaptive barycentric algorithms make high-order problems computationally
+accessible \cite{filip2018}. Interpolation-constrained rational minimax
+approximation already includes prescribed function values and
+higher-order derivative conditions \cite{zhang2025}. After the change
+of variable \(z=1/s\), matching Laurent coefficients at infinity is
+closely related to confluent interpolation at \(z=0\). Thus the novelty
+claim cannot be ``minimax plus constraints.'' The alternation theorem in
+this paper is instead a concise specialization to positive
+Stieltjes-response quadrature, where the shared coefficients reduce the
+difference-numerator degree.
+
+Markov-function rational approximation provides relevant relative-error
+context \cite{beckermann2021}. Horning and Trefethen make the link from
+approximation to quadrature explicit by deriving quadrature
+from rational approximations of Cauchy transforms; their framework also
+connects Gauss quadrature with Pad\'e approximation at infinity
+\cite{horning2025}. This is the closest conceptual comparator. The
+distinction here is the simultaneous enforcement of positive residues,
+a variable polynomial-moment prefix, a continuum relative-minimax
+objective, and an exact mixed-class selector.
+
+\subsection{Worst-case rule selection}
+
+Worst-case analysis for analytic function classes is an established
+part of quadrature theory \cite{trefethen2022,goda2024}, and recent
+positive-weight kernel quadrature gives a different
+convex-geometric worst-case framework \cite{hayakawa2026}. The
+coefficient-box identity used here is elementary duality. Its role is
+to make the smooth residual commensurate with the Stieltjes structural
+error, producing
+\[
+G_k(\rho)+\tau S_k.
+\]
+The paper's practically distinctive output is therefore not a new norm
+identity in isolation, but a selector and interval-certified decision map over a
+finite family of positive structural rules.
+
+\subsection{Defensible novelty statement}
+
+The targeted audit found no direct source combining all of the
+following: positive symmetric Stieltjes residues, continuum Lorentzian
+relative minimax, variable moment depth at fixed node-pair count, an
+exact mixed smooth/structural selector, and a validated parameter
+partition. The defensible claim is this combined model-aware framework.
+The paper does not claim to invent positivity, moment matching,
+structure-aware quadrature, constrained rational minimax,
+equioscillation, or the Gauss/Pad\'e connection separately.
+
+\section{Limitations}
+
+The theoretical and numerical study is one-dimensional and symmetric.
+The principal structural family is the centered Lorentzian kernel. The
+shifted-family experiment is a stress test and is not itself
+minimax-optimized.
+
+The six upper-half fixed-sign systems have computer-assisted existence
+and local uniqueness boxes, together with interval proofs that their
+alternating levels are global on the stated structural interval. This
+does not prove global uniqueness among equal-norm minimizers, and it
+does not provide interval root certificates for the lower-half rules.
+The multi-start study uses the original nonlinear equations and solver.
+The later forward-AD/Arb verifier is an independent author-produced code
+path, but neither calculation is a third-party replication. Moreover,
+the global derivative/curvature audit has been rerun rather than
+reimplemented independently.
+
+The interval-certified selector covers 99.5956\% of the chosen
+\((\rho,\log_{10}\tau)\)-coordinate rectangle and leaves 0.4044\%
+unassigned. The coverage depends on the specified coefficient box,
+Lorentzian interval, candidate rules, coordinate domain, truncation
+degree \(J=500\), and subdivision depth. It is not a probability
+statement and does not imply optimality over quadrature rules outside
+the finite hierarchy.
+
+The regression suite has been exercised in the frozen development
+environment, but a clean offline installation on a separately
+provisioned machine remains a release-stage check. The empirical
+near-geometric price per moment is not an asymptotic theorem. The
+literature audit is targeted rather than exhaustive, and equivalent
+formulations may exist under moment-space, generalized Gaussian,
+constrained Markov, or interpolatory rational terminology. The
+manuscript therefore avoids ``first'' and ``unprecedented'' claims.
+
+\section{Conclusion}
+
+Within the stated positive symmetric Stieltjes class, the variable
+moment depth organizes a path
+\[
+k=0
+\quad\longrightarrow\quad
+k=2n
+\]
+from a structural minimax rule to Gauss--Legendre. The feasible-range
+characterization and difference-degree argument support the numerical
+construction, while the exact mixed risk turns the finite hierarchy
+into a model-aware selector. Complete computations for \(n=2,3,4\),
+computer-assisted existence and global-alternation certificates for the
+six upper-half rules, interval certification of the rounded-operator
+decision map, a shifted-pole stress test, and cross-artifact
+reproduction quantify both the promise and the limits of the approach.
+
+The main contribution is not any ingredient separately. It is the
+combination of positive Stieltjes realization, continuum structural
+minimax, variable polynomial protection, exact mixed-model selection,
+and computer-assisted certification in one reproducible framework.
+The principal remaining scientific gate is external specialist review
+against the closest generalized-quadrature, moment-space, and
+constrained-rational literature. Extensions beyond symmetry and the
+centered kernel are future work rather than requirements for the stated
+finite-class contribution.
+
+\section*{Data and code availability}
+
+A versioned research archive accompanying this manuscript contains the
+published rules, generated data, interval certificates, source code,
+regression tests, dependency lock file, and SHA-256 manifest needed to
+reproduce the reported results. Before formal submission, this frozen
+archive will be deposited in a public repository that issues a
+persistent identifier, and the identifier will be inserted here. The
+existing
+\href{https://github.com/TurkeyOp/partial-moment-stieltjes-quadrature}{public GitHub repository}
+currently records an earlier project baseline and is not yet the
+archival record for the present manuscript version.
+
+\section*{Funding}
+
+This research did not receive any specific grant from funding agencies
+in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of competing interest}
+
+The author declares that he has no known competing financial interests
+or personal relationships that could have appeared to influence the
+work reported in this paper.
+
+\section*{Declaration of generative AI and AI-assisted technologies in
+the manuscript preparation process}
+
+During the preparation of this work, the author used OpenAI ChatGPT to
+assist with literature organization, code prototyping, manuscript
+structuring, and language revision. The author reviewed and verified
+the mathematical derivations, numerical results, references,
+interpretations, and final wording and takes full responsibility for
+the content of the article.
+
+\begin{thebibliography}{18}
+\providecommand{\url}[1]{\texttt{#1}}
+
+\bibitem{gautschi1993}
+W. Gautschi, Gauss-type quadrature rules for rational functions,
+in: H. Brass, G. H\"ammerlin (Eds.), Numerical Integration IV,
+International Series of Numerical Mathematics 112, Birkh\"auser,
+Basel, 1993, pp. 111--130.
+\href{https://doi.org/10.1007/978-3-0348-6338-4_9}{doi:10.1007/978-3-0348-6338-4\_9}.
+
+\bibitem{gautschi2001}
+W. Gautschi, The use of rational functions in numerical quadrature,
+J. Comput. Appl. Math. 133 (2001) 111--126.
+\href{https://doi.org/10.1016/S0377-0427(00)00637-3}{doi:10.1016/S0377-0427(00)00637-3}.
+
+\bibitem{huybrechs2017}
+D. Huybrechs, On the computation of Gaussian quadrature rules for
+Chebyshev sets of linearly independent functions,
+SIAM J. Numer. Anal. 60 (2022) 1168--1192.
+\href{https://doi.org/10.1137/21M1456935}{doi:10.1137/21M1456935}.
+
+\bibitem{filip2018}
+S.-I. Filip, Y. Nakatsukasa, L. N. Trefethen, B. Beckermann,
+Rational minimax approximation via adaptive barycentric
+representations, SIAM J. Sci. Comput. 40 (2018) A2427--A2455.
+\href{https://doi.org/10.1137/17M1132409}{doi:10.1137/17M1132409}.
+
+\bibitem{zhang2025}
+L.-H. Zhang, Y.-N. Zhang, b-d-Lawson: a method for interpolation-
+constrained rational minimax approximation, arXiv:2502.10665 (2025).
+\href{https://doi.org/10.48550/arXiv.2502.10665}{doi:10.48550/arXiv.2502.10665}.
+
+\bibitem{horning2025}
+A. Horning, L. N. Trefethen, Quadrature formulas from rational
+approximations, IMA J. Numer. Anal. (2026) draf138.
+\href{https://doi.org/10.1093/imanum/draf138}{doi:10.1093/imanum/draf138}.
+
+\bibitem{vandebos2019}
+L. M. M. van den Bos, B. Sanderse, A geometric approach for the
+addition of nodes to an interpolatory quadrature rule with positive
+weights, arXiv:1902.07477 (2019).
+\href{https://doi.org/10.48550/arXiv.1902.07477}{doi:10.48550/arXiv.1902.07477}.
+
+\bibitem{glaubitz2020}
+J. Glaubitz, Constructing positive interpolatory cubature formulas,
+arXiv:2009.11981 (2020).
+\href{https://doi.org/10.48550/arXiv.2009.11981}{doi:10.48550/arXiv.2009.11981}.
+
+\bibitem{keshavarzzadeh2018}
+V. Keshavarzzadeh, R. M. Kirby, A. Narayan, Generation of nested
+quadrature rules for generic weight functions via numerical
+optimization: application to sparse grids, J. Comput. Phys. 400 (2020)
+108979.
+\href{https://doi.org/10.1016/j.jcp.2019.108979}{doi:10.1016/j.jcp.2019.108979}.
+
+\bibitem{beckermann2021}
+B. Beckermann, J. Bisch, R. Luce, On the rational approximation of
+Markov functions, with applications to the computation of Markov
+functions of Toeplitz matrices, Numer. Algorithms 91 (2022) 109--144.
+\href{https://doi.org/10.1007/s11075-022-01256-4}{doi:10.1007/s11075-022-01256-4}.
+
+\bibitem{tomanovic2023}
+S. Tomanovi\'c, Gauss-type quadrature rules with respect to external
+zeros of the denominator of the integrand, Electron. Trans. Numer.
+Anal. 59 (2023) 230--249.
+\href{https://doi.org/10.1553/etna_vol59s230}{doi:10.1553/etna\_vol59s230}.
+
+\bibitem{trefethen2022}
+L. N. Trefethen, Exactness of quadrature formulas,
+SIAM Rev. 64 (2022) 132--150.
+\href{https://doi.org/10.1137/20M1389522}{doi:10.1137/20M1389522}.
+
+\bibitem{goda2024}
+T. Goda, Y. Kazashi, K. Tanaka, How sharp are error bounds? Lower
+bounds on quadrature worst-case errors for analytic functions,
+SIAM J. Numer. Anal. 62 (2024) 2370--2392.
+\href{https://doi.org/10.1137/24M1634163}{doi:10.1137/24M1634163}.
+
+\bibitem{hayakawa2026}
+S. Hayakawa, Convex-geometric error bounds for positive-weight kernel
+quadrature, arXiv:2605.05705 (2026).
+\href{https://doi.org/10.48550/arXiv.2605.05705}{doi:10.48550/arXiv.2605.05705}.
+
+\bibitem{nailwal2024}
+R. Nailwal, A. Zalar, Gaussian quadratures with prescribed nodes via
+moment theory, arXiv:2412.20849 (2024).
+\href{https://doi.org/10.48550/arXiv.2412.20849}{doi:10.48550/arXiv.2412.20849}.
+
+\bibitem{moore2009}
+R. E. Moore, R. B. Kearfott, M. J. Cloud, Introduction to Interval
+Analysis, SIAM, Philadelphia, 2009.
+\href{https://doi.org/10.1137/1.9780898717716}{doi:10.1137/1.9780898717716}.
+
+\bibitem{rump2010}
+S. M. Rump, Verification methods: rigorous results using
+floating-point arithmetic, Acta Numer. 19 (2010) 287--449.
+\href{https://doi.org/10.1017/S096249291000005X}{doi:10.1017/S096249291000005X}.
+
+\bibitem{johansson2017}
+F. Johansson, Arb: efficient arbitrary-precision midpoint-radius
+interval arithmetic, IEEE Trans. Comput. 66 (2017) 1281--1292.
+\href{https://doi.org/10.1109/TC.2017.2690633}{doi:10.1109/TC.2017.2690633}.
+
+\end{thebibliography}
+
+\end{document}

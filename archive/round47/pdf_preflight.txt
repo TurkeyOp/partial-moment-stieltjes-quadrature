@@ -1,0 +1,6 @@
+PDF: /mnt/data/mae_quadrature_round47/MANUSCRIPT_VERSION_2_1.pdf
+Pages: 19
+Encrypted: False
+Openable (PyMuPDF): True
+Likely scanned: False
+XFA present: False

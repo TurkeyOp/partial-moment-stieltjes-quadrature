@@ -1,0 +1,47 @@
+PDF: /mnt/data/mae_quadrature_round46/MANUSCRIPT_VERSION_2.pdf
+Pages: 17
+Encrypted: False
+Page sizes (pt, rounded):
+  - 612 x 792 (17 page(s))
+Metadata:
+  /Author: Tran Minh Duc; 
+  /CreationDate: D:20260715074531Z
+  /Creator: LaTeX with hyperref
+  /Keywords: 
+  /ModDate: D:20260715074531Z
+  /PTEX.Fullbanner: This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) kpathsea version 6.4.0/dev
+  /Producer: pdfTeX-1.40.26
+  /Subject: 
+  /Title: From Structural Minimax to Gauss–Legendre: A Positive Moment-Constrained Stieltjes Quadrature Hierarchy
+  /Trapped: /False
+Outline items: 13
+Form fields: 0
+Attachments: 0
+Annotations: 13
+
+Fonts (pdffonts, first 25 lines):
+name                                 type              encoding         emb sub uni object ID
+------------------------------------ ----------------- ---------------- --- --- --- ---------
+QEORRI+SFRM1728                      Type 1            Custom           yes yes yes     66  0
+BAEONM+SFRM1200                      Type 1            Custom           yes yes yes     67  0
+BKYYDY+SFRM0800                      Type 1            Custom           yes yes yes     68  0
+ZCJHNW+CMSY8                         Type 1            Builtin          yes yes yes     69  0
+FWWUBC+SFTI0700                      Type 1            Custom           yes yes yes     71  0
+VKJKTM+SFTI1000                      Type 1            Custom           yes yes yes     72  0
+AUNSDK+SFBX1200                      Type 1            Custom           yes yes yes     73  0
+BHDIGQ+CMMI12                        Type 1            Builtin          yes yes yes     74  0
+LKHUZJ+CMR12                         Type 1            Builtin          yes yes yes     75  0
+WLNAKC+CMSY10                        Type 1            Builtin          yes yes yes     76  0
+WTPXHW+CMMI8                         Type 1            Builtin          yes yes yes     77  0
+KMUJLX+SFTI1200                      Type 1            Custom           yes yes yes     78  0
+SDVCAT+CMSY7                         Type 1            Builtin          yes yes yes     79  0
+AXCHIF+SFRM1000                      Type 1            Custom           yes yes yes     80  0
+VGNPYD+SFTT1000                      Type 1            Custom           yes yes yes     81  0
+CIOVAR+CMEX10                        Type 1            Builtin          yes yes yes    101  0
+JFRNBN+CMR8                          Type 1            Builtin          yes yes yes    102  0
+JOCXKX+CMMI6                         Type 1            Builtin          yes yes yes    111  0
+QDTWCG+MSBM10                        Type 1            Builtin          yes yes yes    112  0
+SZPCEX+CMMI10                        Type 1            Builtin          yes yes yes    137  0
+OAZBRK+CMR10                         Type 1            Builtin          yes yes yes    138  0
+EHGCPL+SFRM1095                      Type 1            Custom           yes yes yes    139  0
+GCWXDV+DejaVuSans-Oblique            Type 3            Custom           yes yes no     143  0

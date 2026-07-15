@@ -1,0 +1,15 @@
+symbol,meaning,location,status,note
+I[f],"Integral over [-1,1]",Global,PASS,
+"L_b, L_{a,b}",Centered and shifted Lorentzian families,Problem/external validity,PASS,Shifted family explicitly separated from training family
+s=b^2,Stieltjes transform coordinate,Theory,PASS,Round52 adds explicit equivalence with b-coordinate extrema
+y_j=x_j^2,Squared positive nodes,Global,PASS,
+w_j,Weight attached to each symmetric node pair,Global,PASS,Moment equation uses half of transformed Gaussian weights consistently
+"Theta_{n,k}",Moment level set in ordered positive parameter domain,Theory,PASS,
+"A_{n,k}","Quadrature operators induced by Theta_{n,k}",Theory,PASS,
+epsilon_Q(s),Relative structural error r_Q/F-1,Alternation theory,PASS,Round50 computes equivalent epsilon_Q(b)
+E,Positive alternating error level,Minimax/certification,PASS,Sign separated as sigma or fixed endpoint pattern
+S_Q,Maximum absolute structural error,Selector,PASS,Distinguished from relative error used in construction
+G_Q(rho),Exact coefficient-box smooth risk factor,Selector,PASS,
+tau=c_max/C,Structural-to-smooth amplitude ratio,Selector,PASS,C=0 edge case is excluded implicitly when ratio is formed; class theorem itself allows C>=0
+Q^* versus tilde Q,Ideal rule versus published rounded operator,Numerics/certificates,PASS,Round49 and Round50 scopes explicitly separated
+d=2n-k,Dimension and number of alternation intervals,Round50,PASS,Unknown count 2n+(d-1)+1=4n-k

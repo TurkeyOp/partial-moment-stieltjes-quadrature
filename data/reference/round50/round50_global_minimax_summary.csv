@@ -1,0 +1,7 @@
+n,k,nested_box_radius,krawczyk_certified,derivative_segments_certified,curvature_neighborhoods_certified,global_uniform_level_certified,alternation_points,internal_extrema,subintervals_visited,certified_derivative_leaves,maximum_subdivision_depth,minimum_derivative_sign_margin,minimum_curvature_sign_margin
+2,3,1e-12,True,True,True,True,2,0,5,3,2,0.7967214733362198,
+3,4,1e-12,True,True,True,True,3,1,408,205,15,1.1718663699866738e-05,47.26750421337783
+3,5,1e-12,True,True,True,True,2,0,11,6,3,0.5764073822647333,
+4,5,1e-12,True,True,True,True,4,2,6697,3350,18,7.55312044020684e-08,3.393526552245021
+4,6,1e-12,True,True,True,True,3,1,594,298,15,1.0154138635698473e-05,33.05210614018142
+4,7,1e-12,True,True,True,True,2,0,21,11,4,0.18653403501957655,

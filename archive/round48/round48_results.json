@@ -1,0 +1,20 @@
+{
+  "round": 48,
+  "deliverable": "Theorem-audited Manuscript Version 2.2",
+  "issues_audited": 12,
+  "critical_issues": 1,
+  "major_issues": 8,
+  "analytical_theorems_retracted": 0,
+  "analytical_theorems_strengthened": 5,
+  "selector_claim_downgraded_to_screening": true,
+  "multistart_independence_claim_removed": true,
+  "compiled_pdf": true,
+  "page_count": 22,
+  "rendered_pages": 22,
+  "undefined_reference_warning_count": 0,
+  "undefined_citation_warning_count": 0,
+  "forbidden_claims_remaining": [],
+  "remaining_primary_blocker": "rigorous interval selector validation and external specialist review",
+  "overfull_hbox_warning_count": 0,
+  "visual_render_status": "All 22 pages rendered successfully; representative theorem, figure, selector, limitations, and reference pages inspected."
+}

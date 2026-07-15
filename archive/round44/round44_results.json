@@ -1,0 +1,17 @@
+{
+  "round": 44,
+  "rules_verified": 9,
+  "geometry_pass": true,
+  "non_gaussian_extremal_counts_pass": true,
+  "non_gaussian_alternation_pass": true,
+  "gaussian_endpoint_zero_dimensional": true,
+  "maximum_non_gaussian_extremal_spread": 5.958419171809527e-06,
+  "maximum_structural_enclosure_relative_width": 0.0008066592092587541,
+  "adaptive_certified_coverage": 0.9790673828124998,
+  "adaptive_unresolved_area_fraction": 0.020932617187500013,
+  "adaptive_depth": 4,
+  "remaining_blockers": [
+    "independent multi-start optimizer reconstruction",
+    "specialist novelty review"
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "check_count": 35,
+  "passed_count": 35,
+  "failed_count": 0,
+  "critical_failure_count": 0,
+  "major_failure_count": 0,
+  "overall_verdict": "PASS",
+  "checks": [
+    {
+      "check": "Round43 nodes hash matches Round50 recorded input",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "983bf6eb56c7812d13d8337b912e2dbaa6f1b542146a059c601f5bba94c5c70c"
+    },
+    {
+      "check": "Round43 alternation hash matches Round50 recorded input",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "fbe7d90351eed29cb3b6972596e590debc951d08ca17ee908c2c91ef6e05062a"
+    },
+    {
+      "check": "Complete hierarchy has 21 levels",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "21"
+    },
+    {
+      "check": "Complete hierarchy independent audit passes",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "{\"maximum_moment_residual\": 6.27844981593e-16, \"maximum_extremum_value_discrepancy\": 5.53553065392e-15, \"maximum_internal_derivative_residual\": 1.47230528639e-13}"
+    },
+    {
+      "check": "n=4 hierarchy has nine levels",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "9"
+    },
+    {
+      "check": "Independent AD verifier certifies six systems",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "6"
+    },
+    {
+      "check": "Independent AD verdicts agree with Round50",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "max q-norm relative difference=0.26368335144056315"
+    },
+    {
+      "check": "Independent verifier does not import Round50 module",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "static source scan"
+    },
+    {
+      "check": "Independent verifier uses automatic differentiation",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "Dual/system_dual present"
+    },
+    {
+      "check": "Round49 rerun matches frozen maximum_chebyshev_degree",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "rerun=500, frozen=500"
+    },
+    {
+      "check": "Round49 rerun matches frozen selector_maximum_depth",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "rerun=24, frozen=24"
+    },
+    {
+      "check": "Round49 rerun matches frozen structural_rules_certified",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "rerun=9, frozen=9"
+    },
+    {
+      "check": "Round49 rerun matches frozen visited_selector_cells",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "rerun=344615, frozen=344615"
+    },
+    {
+      "check": "Round49 rerun matches frozen certified_leaf_count",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "rerun=104467, frozen=104467"
+    },
+    {
+      "check": "Round49 rerun matches frozen unresolved_leaf_count",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "rerun=67841, frozen=67841"
+    },
+    {
+      "check": "Round49 rerun matches frozen certified_fraction",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "rerun=0.995956361293792724609375, frozen=0.995956361293792724609375"
+    },
+    {
+      "check": "Round49 rerun matches frozen unresolved_fraction",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "rerun=0.004043638706207275390625, frozen=0.004043638706207275390625"
+    },
+    {
+      "check": "Round50 rerun contains all six systems",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "[(2, 3), (3, 4), (3, 5), (4, 5), (4, 6), (4, 7)]"
+    },
+    {
+      "check": "Round50 original certifier rerun reproduces all verdicts",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "6/6 CERTIFIED"
+    },
+    {
+      "check": "Round50 original rerun q-norms are stable",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "max relative difference=0.0"
+    },
+    {
+      "check": "Precision-fixed Round50 certifier covers all six systems",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "[(2, 3), (3, 4), (3, 5), (4, 5), (4, 6), (4, 7)]"
+    },
+    {
+      "check": "Precision-fixed Round50 certifier certifies all six",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "6/6 CERTIFIED"
+    },
+    {
+      "check": "Precision-fixed Newton centers have high-precision exact-endpoint residuals",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "max residual=1.7254626003080606e-180"
+    },
+    {
+      "check": "Precision-fixed certifier avoids import-time mpmath endpoint construction",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "endpoint strings instantiated inside eval_mp"
+    },
+    {
+      "check": "Round50 global minimax rerun certifies all six",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "True"
+    },
+    {
+      "check": "Round50 global minimax rerun agrees with frozen",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "boolean verdict comparison"
+    },
+    {
+      "check": "Rebuilt manuscript has 25 pages",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "25"
+    },
+    {
+      "check": "Rebuilt and frozen manuscript page counts agree",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "original=25, rebuilt=25"
+    },
+    {
+      "check": "Rebuilt manuscript text matches frozen PDF",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "original=ae95e4440163c23d1eea8ecd8b41c3c963a862a01ee0342ad02f64bf791c64b9, rebuilt=ae95e4440163c23d1eea8ecd8b41c3c963a862a01ee0342ad02f64bf791c64b9"
+    },
+    {
+      "check": "Manuscript compile has no undefined references/citations",
+      "passed": true,
+      "severity": "critical",
+      "evidence": "count=0"
+    },
+    {
+      "check": "Manuscript compile has no overfull hboxes",
+      "passed": true,
+      "severity": "major",
+      "evidence": "count=0"
+    },
+    {
+      "check": "Manuscript contains Round49 certified percentage rounded for manuscript",
+      "passed": true,
+      "severity": "major",
+      "evidence": "99.595636"
+    },
+    {
+      "check": "Manuscript contains Round49 unresolved percentage rounded for manuscript",
+      "passed": true,
+      "severity": "major",
+      "evidence": "0.404364"
+    },
+    {
+      "check": "Manuscript contains Round49 visited cells",
+      "passed": true,
+      "severity": "major",
+      "evidence": "344,615"
+    },
+    {
+      "check": "Manuscript contains manuscript version marker",
+      "passed": true,
+      "severity": "major",
+      "evidence": "Version 2.4"
+    }
+  ],
+  "limitations": [
+    "The clean-environment install was not tested without access to preinstalled wheels or the internet.",
+    "Independent reproduction is author-produced, not a third-party replication.",
+    "The independent AD verifier re-certifies the precision-fixed local root boxes but relies on the Round50 interval monotonicity/curvature implementation for the global uniform-level claim.",
+    "The archived Round50 Newton code constructed mpmath endpoints at import-time default precision; its Arb interval certificate remained valid, and the Round51 precision-fixed rerun removes this center-residual inconsistency."
+  ]
+}

@@ -1,0 +1,7 @@
+n,k,certificate_status,blocker,diagnostic_action_required
+2,3,CERTIFIED,None,None
+3,4,CERTIFIED,None,None
+3,5,CERTIFIED,None,None
+4,5,CERTIFIED,None,None
+4,6,CERTIFIED,None,None
+4,7,CERTIFIED,None,None

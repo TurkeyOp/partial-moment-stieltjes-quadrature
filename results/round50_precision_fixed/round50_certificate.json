@@ -1,0 +1,266 @@
+{
+  "method": "Krawczyk with Arb interval Jacobian and numerical midpoint preconditioner",
+  "precision": {
+    "mp_dps": 180,
+    "arb_dps": 180
+  },
+  "inputs": {
+    "nodes_csv": "round43/round43_full_hierarchy_nodes_weights.csv",
+    "nodes_sha256": "983bf6eb56c7812d13d8337b912e2dbaa6f1b542146a059c601f5bba94c5c70c",
+    "alternation_csv": "round43/round43_full_hierarchy_alternation.csv",
+    "alternation_sha256": "fbe7d90351eed29cb3b6972596e590debc951d08ca17ee908c2c91ef6e05062a"
+  },
+  "all_six_certified": true,
+  "problems": {
+    "n2_k3": {
+      "summary": {
+        "n": 2,
+        "k": 3,
+        "dimension_d": 1,
+        "unknowns": 5,
+        "equations": 5,
+        "internal_extrema": 0,
+        "sign_pattern": [
+          -1,
+          1
+        ],
+        "point_residual_max": "1.3555799241203723162e-181",
+        "jacobian_condition_estimate": "617.830718275",
+        "verdict": "CERTIFIED",
+        "radius": "1.0e-12",
+        "radius_exponent": 12,
+        "krawczyk_q_norm_upper": 1.740414834264749e-09,
+        "minimum_inclusion_margin": 1.0000000027341118e-12,
+        "minimum_y_ordering_margin": 0.023975033031059214,
+        "minimum_weight_lower_bound": 0.48154391984869144,
+        "minimum_b_ordering_margin": null,
+        "E_lower_bound": 0.10500586736450084,
+        "all_residual_intervals_contain_zero": true
+      },
+      "newton_history": [
+        "1.67491985129e-16",
+        "2.57521920209e-32",
+        "3.10069242904e-64",
+        "4.62065021896e-127",
+        "1.35557992412e-181"
+      ],
+      "attempts": [
+        {
+          "radius_exponent": 12,
+          "success": true,
+          "q_norm_upper": 1.740414834264749e-09,
+          "minimum_inclusion_margin": 1.0000000027341118e-12
+        }
+      ]
+    },
+    "n3_k4": {
+      "summary": {
+        "n": 3,
+        "k": 4,
+        "dimension_d": 2,
+        "unknowns": 8,
+        "equations": 8,
+        "internal_extrema": 1,
+        "sign_pattern": [
+          -1,
+          1,
+          -1
+        ],
+        "point_residual_max": "2.9370898355941400185e-181",
+        "jacobian_condition_estimate": "58748.7774881",
+        "verdict": "CERTIFIED",
+        "radius": "1.0e-12",
+        "radius_exponent": 12,
+        "krawczyk_q_norm_upper": 2.7403431523364548e-08,
+        "minimum_inclusion_margin": 9.999999770710946e-13,
+        "minimum_y_ordering_margin": 0.004859908968323634,
+        "minimum_weight_lower_bound": 0.1733930820170607,
+        "minimum_b_ordering_margin": 0.0163264113264065,
+        "E_lower_bound": 0.004365404471745892,
+        "all_residual_intervals_contain_zero": true
+      },
+      "newton_history": [
+        "7.15580483291e-16",
+        "5.82992375143e-30",
+        "5.79865728861e-60",
+        "4.97669881533e-119",
+        "2.93708983559e-181"
+      ],
+      "attempts": [
+        {
+          "radius_exponent": 12,
+          "success": true,
+          "q_norm_upper": 2.7403431523364548e-08,
+          "minimum_inclusion_margin": 9.999999770710946e-13
+        }
+      ]
+    },
+    "n3_k5": {
+      "summary": {
+        "n": 3,
+        "k": 5,
+        "dimension_d": 1,
+        "unknowns": 7,
+        "equations": 7,
+        "internal_extrema": 0,
+        "sign_pattern": [
+          -1,
+          1
+        ],
+        "point_residual_max": "2.2592998735339538604e-181",
+        "jacobian_condition_estimate": "15003.2284406",
+        "verdict": "CERTIFIED",
+        "radius": "1.0e-12",
+        "radius_exponent": 12,
+        "krawczyk_q_norm_upper": 3.4318287531381513e-09,
+        "minimum_inclusion_margin": 1.0000000010426979e-12,
+        "minimum_y_ordering_margin": 0.014337704145548202,
+        "minimum_weight_lower_bound": 0.22826762142155904,
+        "minimum_b_ordering_margin": null,
+        "E_lower_bound": 0.06980804604056094,
+        "all_residual_intervals_contain_zero": true
+      },
+      "newton_history": [
+        "9.62740318219e-16",
+        "3.12072632788e-30",
+        "2.8930117909e-59",
+        "6.70755307922e-118",
+        "2.25929987353e-181"
+      ],
+      "attempts": [
+        {
+          "radius_exponent": 12,
+          "success": true,
+          "q_norm_upper": 3.4318287531381513e-09,
+          "minimum_inclusion_margin": 1.0000000010426979e-12
+        }
+      ]
+    },
+    "n4_k5": {
+      "summary": {
+        "n": 4,
+        "k": 5,
+        "dimension_d": 3,
+        "unknowns": 11,
+        "equations": 11,
+        "internal_extrema": 2,
+        "sign_pattern": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "point_residual_max": "1.7254626003080604996e-180",
+        "jacobian_condition_estimate": "788449.156568",
+        "verdict": "CERTIFIED",
+        "radius": "1.0e-12",
+        "radius_exponent": 12,
+        "krawczyk_q_norm_upper": 5.822799461018218e-07,
+        "minimum_inclusion_margin": 9.999994221945712e-13,
+        "minimum_y_ordering_margin": 0.0020491896026606517,
+        "minimum_weight_lower_bound": 0.10140746149803026,
+        "minimum_b_ordering_margin": 0.007704157839579867,
+        "E_lower_bound": 0.00017943334845250058,
+        "all_residual_intervals_contain_zero": true
+      },
+      "newton_history": [
+        "5.87319529028e-16",
+        "6.42148116596e-28",
+        "4.92609154207e-54",
+        "1.80737122881e-106",
+        "1.72546260031e-180"
+      ],
+      "attempts": [
+        {
+          "radius_exponent": 12,
+          "success": true,
+          "q_norm_upper": 5.822799461018218e-07,
+          "minimum_inclusion_margin": 9.999994221945712e-13
+        }
+      ]
+    },
+    "n4_k6": {
+      "summary": {
+        "n": 4,
+        "k": 6,
+        "dimension_d": 2,
+        "unknowns": 10,
+        "equations": 10,
+        "internal_extrema": 1,
+        "sign_pattern": [
+          -1,
+          1,
+          -1
+        ],
+        "point_residual_max": "2.4099198651028841177e-181",
+        "jacobian_condition_estimate": "1447648.01789",
+        "verdict": "CERTIFIED",
+        "radius": "1.0e-12",
+        "radius_exponent": 12,
+        "krawczyk_q_norm_upper": 4.375754222043456e-08,
+        "minimum_inclusion_margin": 9.999999607169839e-13,
+        "minimum_y_ordering_margin": 0.003941092003737934,
+        "minimum_weight_lower_bound": 0.1490107605465006,
+        "minimum_b_ordering_margin": 0.015587797000743895,
+        "E_lower_bound": 0.002943219480788432,
+        "all_residual_intervals_contain_zero": true
+      },
+      "newton_history": [
+        "4.59529670285e-15",
+        "2.87379526588e-28",
+        "8.58243647177e-56",
+        "3.14426533895e-112",
+        "2.4099198651e-181"
+      ],
+      "attempts": [
+        {
+          "radius_exponent": 12,
+          "success": true,
+          "q_norm_upper": 4.375754222043456e-08,
+          "minimum_inclusion_margin": 9.999999607169839e-13
+        }
+      ]
+    },
+    "n4_k7": {
+      "summary": {
+        "n": 4,
+        "k": 7,
+        "dimension_d": 1,
+        "unknowns": 9,
+        "equations": 9,
+        "internal_extrema": 0,
+        "sign_pattern": [
+          -1,
+          1
+        ],
+        "point_residual_max": "2.0333698861805584743e-181",
+        "jacobian_condition_estimate": "425917.731955",
+        "verdict": "CERTIFIED",
+        "radius": "1.0e-12",
+        "radius_exponent": 12,
+        "krawczyk_q_norm_upper": 3.438679688041701e-08,
+        "minimum_inclusion_margin": 9.999999700877293e-13,
+        "minimum_y_ordering_margin": 0.00986043486706624,
+        "minimum_weight_lower_bound": 0.12619367936097256,
+        "minimum_b_ordering_margin": null,
+        "E_lower_bound": 0.04597982225245282,
+        "all_residual_intervals_contain_zero": true
+      },
+      "newton_history": [
+        "1.01897076044e-16",
+        "6.192119259e-28",
+        "7.35076950925e-54",
+        "6.55527956377e-107",
+        "2.03336988618e-181"
+      ],
+      "attempts": [
+        {
+          "radius_exponent": 12,
+          "success": true,
+          "q_norm_upper": 3.438679688041701e-08,
+          "minimum_inclusion_margin": 9.999999700877293e-13
+        }
+      ]
+    }
+  }
+}

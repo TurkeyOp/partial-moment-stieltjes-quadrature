@@ -1,0 +1,11 @@
+{
+  "round": 42,
+  "main_question": "Why does the current hierarchy stop at k<=n?",
+  "answer": "It is a design truncation, not the maximal feasible range.",
+  "full_feasible_range": "0<=k<=2n",
+  "dimension_formula": "dim A_{n,k}=2n-k",
+  "maximal_endpoint": "k=2n equals the 2n-point Gauss-Legendre rule",
+  "k_greater_than_2n": "impossible",
+  "current_paper_scope": "lower-half hierarchy 0<=k<=n",
+  "submission_blocker": true
+}
